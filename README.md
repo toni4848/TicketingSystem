@@ -75,3 +75,9 @@ Dodatno (nije potrebno, ali ako budete turbo brzi):
 
 - Upotreba nekog CSS frameworka da cijela priča izgleda ljepše
 
+##Razvoj
+
+-kreiran relacijski model
+
+![Relacijski model](https://github.com/Norgul/studenti2020x2/blob/master/public/img/RM%20ticket.png)
+
