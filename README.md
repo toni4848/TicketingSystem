@@ -75,7 +75,7 @@ Dodatno (nije potrebno, ali ako budete turbo brzi):
 
 - Upotreba nekog CSS frameworka da cijela priča izgleda ljepše
 
-##Razvoj
+## Razvoj
 
 -kreiran relacijski model
 
