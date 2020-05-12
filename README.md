@@ -77,7 +77,7 @@ Dodatno (nije potrebno, ali ako budete turbo brzi):
 
 ## Razvoj
 
--kreiran relacijski model
+- kreiran relacijski model
 
 ![Relacijski model](https://github.com/Norgul/studenti2020x2/blob/master/public/img/RM%20ticket.png)
 
