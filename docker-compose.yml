@@ -22,6 +22,8 @@ services:
     volumes:
       - dbvolume:/bitnami
       - ./docker/db/init.d:/docker-entrypoint-initdb.d
+    ports:
+      - "3306:3306"
 
 volumes:
   dbvolume:
