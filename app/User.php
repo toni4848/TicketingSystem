@@ -5,9 +5,22 @@ namespace App;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\Model;
 
 class User extends Authenticatable
 {
+
+    public $timestamps = false;
+
+    public function tickets(){
+        return $this->hasMany(Ticket::class);
+    }
+
+    public function comments(){
+        return $this->hasMany(Comment::class);
+    }
+
+
     use Notifiable;
 
     /**
