@@ -83,3 +83,5 @@ Dodatno (nije potrebno, ali ako budete turbo brzi):
 
 - izrađene migracije
 
+- kreirane relacije između modela ( i factory)
+
