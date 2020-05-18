@@ -17,7 +17,7 @@ class UserController extends Controller
     {
         $users = User::get();
 
-        return $users;
+        return view('users.index', ['users' => $users]);
     }
 
     /**
@@ -61,7 +61,7 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
-        return $user;
+        return view('users.show', ['user' => $user]);
     }
 
     /**
