@@ -18,6 +18,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+
 Route::get('/about', function () {
     return view('about');
 });
@@ -55,3 +56,13 @@ Route::get('/clients/{client}/edit','ClientsController@edit');
 Route::put('/clients/{client}', 'ClientsController@update');
 
 Route::delete('/clients/{client}', 'ClientsController@destroy');
+
+
+Route::get('/users', 'UserController@index');
+Route::get('/users/create', 'UserController@create');
+Route::post('/users', 'UserController@store');
+Route::get('/users/{user}', 'UserController@show');
+Route::get('/users/{user}/edit', 'UserController@edit');
+Route::put('/users/{user}', 'UserController@update');
+Route::delete('/users/{user}', 'UserController@destroy');
+
