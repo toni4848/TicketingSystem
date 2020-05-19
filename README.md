@@ -85,3 +85,7 @@ Dodatno (nije potrebno, ali ako budete turbo brzi):
 
 - kreirane relacije između modela (i factory)
 
+- kreirana nova dva brancha (Josipov i moj)
+
+- kreiran CRUD i view za tablice state i client na developerToni branchu
+
