@@ -57,6 +57,7 @@ Route::put('/clients/{client}', 'ClientsController@update');
 
 Route::delete('/clients/{client}', 'ClientsController@destroy');
 
+//Users routes
 
 Route::get('/users', 'UserController@index');
 Route::get('/users/create', 'UserController@create');
@@ -66,3 +67,10 @@ Route::get('/users/{user}/edit', 'UserController@edit');
 Route::put('/users/{user}', 'UserController@update');
 Route::delete('/users/{user}', 'UserController@destroy');
 
+//Comments routes
+
+Route::get('/comments', 'CommentController@index');
+Route::get('/comments/create', 'CommentController@create');
+Route::post('/comments', 'CommentController@store');
+Route::get('/comments/{comment}', 'CommentController@show');
+Route::get('/comments/{comment}/edit', 'CommentController@edit');
