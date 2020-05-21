@@ -14,12 +14,12 @@
     </div>
 
     <div style="margin-top: 10px">
-        <a class="text-white" href="/states/{{ $comment->id }}/edit">
+        <a class="text-white" href="/comments/{{ $comment->id }}/edit">
             <button type="button" class="btn btn-green btn-sm m-0">Edit</button>
         </a>
     </div>
     <div style="margin-top: 10px">           
-        <form method="POST" action="/states/{{ $comment->id }}">
+        <form method="POST" action="/comments/{{ $comment->id }}">
             @csrf
             @method('DELETE')
             <button type="submit" class="btn btn-red btn-sm m-0">Delete</button>

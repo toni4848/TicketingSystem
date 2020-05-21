@@ -82,7 +82,9 @@ class CommentController extends Controller
      */
     public function update(Request $request, Comment $comment)
     {
-        //
+        $comment->update($this->validateComment());
+
+        return redirect('/comments');
     }
 
     /**
@@ -93,7 +95,9 @@ class CommentController extends Controller
      */
     public function destroy(Comment $comment)
     {
-        //
+        $comment->delete();
+
+        return redirect('/comments');
     }
 
     public function validateComment(): array

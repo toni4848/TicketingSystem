@@ -74,3 +74,5 @@ Route::get('/comments/create', 'CommentController@create');
 Route::post('/comments', 'CommentController@store');
 Route::get('/comments/{comment}', 'CommentController@show');
 Route::get('/comments/{comment}/edit', 'CommentController@edit');
+Route::put('/comments/{comment}', 'CommentController@update');
+Route::delete('/comments/{comment}', 'CommentController@destroy');
