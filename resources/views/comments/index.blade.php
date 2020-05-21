@@ -25,7 +25,7 @@
                 <td>{{ $comment->user->name }}</td>
                 <td>{{ $comment->ticket_id }}
                 <td>
-                    <a class="text-white" href="/comments/{{ $comment->id }}">
+                    <a class="text-white" href="{{ route('comments.show', $comment->id) }}">
                     <button type="button" class="btn btn-indigo btn-sm m-0">View</button>
                     </a>
                 </td>
@@ -36,7 +36,7 @@
     <a class="text-white" href="/">
     <button class="btn peach-gradient">Početna</button>
     </a>
-    <a class="text-white" href="/comments/create">
+    <a class="text-white" href="{{ route('comments.create') }}">
         <button class="btn blue-gradient">Create</button>
     </a>
     <div class="col-sm-12 mt-4">

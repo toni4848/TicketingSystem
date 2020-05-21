@@ -48,7 +48,7 @@ class CommentController extends Controller
             'ticket_id' => 1
         ]);
 
-        return redirect('/comments');
+        return redirect(route('comments.index'));
     }
 
     /**
@@ -84,7 +84,7 @@ class CommentController extends Controller
     {
         $comment->update($this->validateComment());
 
-        return redirect('/comments');
+        return redirect(route('comments.show', $comment));
     }
 
     /**
@@ -97,7 +97,7 @@ class CommentController extends Controller
     {
         $comment->delete();
 
-        return redirect('/comments');
+        return redirect(route('comments.index'));
     }
 
     public function validateComment(): array

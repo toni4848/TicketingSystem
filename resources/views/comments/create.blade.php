@@ -10,7 +10,7 @@
     <div class="row pt-5 pl-5">
         <div class="col-3"></div>
             <div class="col-6">
-                <form method="POST" action="/comments">
+                <form method="POST" action="{{ route('comments.store') }}">
                     @csrf
 
                     <div class="md-form 2">
@@ -24,7 +24,7 @@
                         <label for="comment">Comment</label>
 
                         @error('state')
-                            <p class="help is-danger">{{$errors->first('comment')}}</p>
+                            <p class="help is-danger">{{ $errors->first('comment') }}</p>
                         @enderror
                     </div>
 

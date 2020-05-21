@@ -59,20 +59,20 @@ Route::delete('/clients/{client}', 'ClientsController@destroy');
 
 //Users routes
 
-Route::get('/users', 'UserController@index');
-Route::get('/users/create', 'UserController@create');
+Route::get('/users', 'UserController@index')->name('users.index');
+Route::get('/users/create', 'UserController@create')->name('users.create');
 Route::post('/users', 'UserController@store');
-Route::get('/users/{user}', 'UserController@show');
-Route::get('/users/{user}/edit', 'UserController@edit');
+Route::get('/users/{user}', 'UserController@show')->name('users.show');
+Route::get('/users/{user}/edit', 'UserController@edit')->name('users.edit');
 Route::put('/users/{user}', 'UserController@update');
 Route::delete('/users/{user}', 'UserController@destroy');
 
 //Comments routes
 
-Route::get('/comments', 'CommentController@index');
-Route::get('/comments/create', 'CommentController@create');
-Route::post('/comments', 'CommentController@store');
-Route::get('/comments/{comment}', 'CommentController@show');
-Route::get('/comments/{comment}/edit', 'CommentController@edit');
-Route::put('/comments/{comment}', 'CommentController@update');
-Route::delete('/comments/{comment}', 'CommentController@destroy');
+Route::get('/comments', 'CommentController@index')->name('comments.index');
+Route::get('/comments/create', 'CommentController@create')->name('comments.create');
+Route::post('/comments', 'CommentController@store')->name('comments.store');
+Route::get('/comments/{comment}', 'CommentController@show')->name('comments.show');
+Route::get('/comments/{comment}/edit', 'CommentController@edit')->name('comments.edit');
+Route::put('/comments/{comment}', 'CommentController@update')->name('comments.update');
+Route::delete('/comments/{comment}', 'CommentController@destroy')->name('comments.destroy');
