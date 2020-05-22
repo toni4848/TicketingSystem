@@ -26,6 +26,9 @@
                 <h4 class="pb-2 pt-4">Clients</h4>
                 <a href="/clients">Clients (GET/clients)</a>
                 <a href="/clients/create">Clients (GET/clients/create)</a>
+                <h4 class="pb-2 pt-4">Ticket</h4>
+                <a href="/tickets">Tickets (GET/clients)</a>
+                <a href="/tickets/create">Tickets (GET/tickets/create)</a>
             </div>
         </div>
     </div>

@@ -66,3 +66,11 @@ Route::get('/users/{user}/edit', 'UserController@edit');
 Route::put('/users/{user}', 'UserController@update');
 Route::delete('/users/{user}', 'UserController@destroy');
 
+Route::get('/tickets','TicketsController@index');
+Route::post('/tickets','TicketsController@store');
+Route::get('/tickets/create', 'TicketsController@create');
+Route::get('/tickets/{ticket}','TicketsController@show');
+Route::get('/userTickets', 'TicketsController@userTickets');
+Route::put('/tickets/{ticket}','TicketsController@update');
+Route::delete('/tickets/{ticket}','TicketsController@destroy');
+Route::get('/tickets/{ticket}/edit','TicketsController@edit');
