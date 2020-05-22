@@ -4,13 +4,13 @@
 <div class="container pt-5">
     <div class="row">
         <div class="col align-self-center">
-            <h1>State (GET/states/{state}/edit)</h1>
+            <h1>Edit a comment</h1>
         </div>
     </div>
     <div class="row pt-5 pl-5">
         <div class="col-3"></div>
         <div class="col-6">
-            <form method="POST" action="{{ route('comments.update', $comment->id) }}">
+            <form method="POST" action="{{ route('comments.update', $comment) }}">
                 @csrf
                 @method('PUT')
 
@@ -24,7 +24,7 @@
                     cols="50">{{ $comment->comment }}</textarea>
                     <label for="comment">Comment</label>
 
-                    @error('state')
+                    @error('comment')
                         <p class="help is-danger">{{ $errors->first('comment') }}</p>
                     @enderror
                 </div>

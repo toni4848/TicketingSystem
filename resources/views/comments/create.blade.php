@@ -4,7 +4,7 @@
 <div class="container pt-5">
     <div class="row">
         <div class="col align-self-center">
-            <h1>Comment (GET/create)</h1>
+            <h1>Leave a comment</h1>
         </div>
     </div>
     <div class="row pt-5 pl-5">
@@ -23,12 +23,12 @@
                         cols="50"></textarea>
                         <label for="comment">Comment</label>
 
-                        @error('state')
+                        @error('comment')
                             <p class="help is-danger">{{ $errors->first('comment') }}</p>
                         @enderror
                     </div>
 
-                    <button class="btn blue-gradient text-white " type="submit">Store (POST/Comments)</button>
+                    <button class="btn blue-gradient text-white " type="submit">Post</button>
 
                 </form>
             </div>

@@ -1,24 +1,36 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-</head>
-<body>
-    <div>Username: {{ $user->username }}</div>
-    <div>ID: {{ $user->id }}</div>
-    <div>Name: {{ $user->name }}</div>
+@extends('layout')
+
+@section('content')
+<div class="container pt-5">
     <div>
-        <form action="/users/{{ $user->id }}/edit" method="get">
-            <button type="submit" value="Submit">Edit</button>
-        </form>
-        <form action="/users/{{ $user->id }}" method="POST">
+        <p>Name: {{ $user->name }}</p>
+        <p>Username: {{ $user->username }}</p>
+        <p>User ID: {{ $user->id }}</p>
+    </div>
+
+    <div style="margin-top: 10px">
+        <a class="text-white" href="{{ route('users.edit', $user) }}">
+            <button type="button" class="btn btn-green btn-sm m-0">Edit</button>
+        </a>
+    </div>
+    <div style="margin-top: 10px">           
+        <form method="POST" action="{{ route('users.destroy', $user) }}">
             @csrf
             @method('DELETE')
-            <button type="submit" value="Submit">Delete</button>
+            <button type="submit" class="btn btn-red btn-sm m-0">Delete</button>
         </form>
     </div>
-</body>
-</html>
+    <div>
+        <a class="text-white" href="/">
+            <button class="btn peach-gradient">Početna</button>
+        </a>
+    </div>
+    <div class="col-sm-12 p-4">
+        @if(session()->get('success'))
+            <div class="alert alert-success">
+                {{ session()->get('success') }}
+            </div>
+        @endif
+    </div>
+</div>
+@endsection

@@ -38,7 +38,7 @@ class CommentController extends Controller
     public function store(Request $request)
     {
         request()->validate([
-            'comment' => ['required', 'max:45']
+            'comment' => ['required', 'max:255']
         ]);
 
         //Hardcoded user_id and ticket_id for now

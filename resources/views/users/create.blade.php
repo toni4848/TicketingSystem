@@ -1,31 +1,73 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Create user</title>
-</head>
-<body>
-    <h1>Create user</h1>
-    <form action="/users" method="POST">
-        @csrf
-        <div><label>Name</label></div>
-        <div><input type="text" id="name" name="name" value="{{ old('name') }}" required></div>
-        @error('name')
-            <p>{{ $errors->first('name') }}</p>
-        @enderror
-        <div><label>Username</label></div>
-        <div><input type="text" id="username" name="username" value="{{ old('name') }}" required></div>
-        @error('username')
-            <p>{{ $errors->first('username') }}</p>
-        @enderror
-        <div><label>Password</label></div>
-        <div><input type="password" id="password" name="password" required></div>
-        @error('password')
-            <p>{{ $errors->first('password') }}</p>
-        @enderror
-        <div><button type="submit" value="Submit">Submit</button></div>
-    </form>
-</body>
-</html>
+@extends('layout')
+
+@section('content')
+<div class="container pt-5">
+    <div class="row">
+        <div class="col align-self-center">
+            <h1>Create user</h1>
+        </div>
+    </div>
+    <div class="row pt-5 pl-5">
+        <div class="col-3"></div>
+            <div class="col-6">
+                <form method="POST" action="{{ route('users.store') }}">
+                    @csrf
+
+                    <div class="md-form 2">
+                        <input type="text"
+                               id="name"
+                               name="name"
+                               class="form-control @error('name') is-danger @enderror"
+                               required
+                               value="{{ old('name') }}">
+                        <label for="name">Name</label>
+
+                        @error('name')
+                            <p class="help is-danger">{{ $errors->first('name') }}</p>
+                        @enderror
+                    </div>
+
+                    <div class="md-form 2">
+                        <input type="text"
+                               id="username"
+                               name="username"
+                               class="form-control @error('username') is-danger @enderror"
+                               required
+                               value="{{ old('username') }}">
+                        <label for="username">Userame</label>
+
+                        @error('username')
+                            <p class="help is-danger">{{ $errors->first('username') }}</p>
+                        @enderror
+                    </div>
+
+                    <div class="md-form 2">
+                        <input type="password"
+                               id="password"
+                               name="password"
+                               class="form-control @error('password') is-danger @enderror"
+                               required>
+                        <label for="password">Password</label>
+
+                        @error('password')
+                            <p class="help is-danger">{{ $errors->first('password') }}</p>
+                        @enderror
+                    </div>
+
+                    <button class="btn blue-gradient text-white " type="submit">Save</button>
+
+                </form>
+            </div>
+        <div class="col-3"></div>
+    </div>
+    <div class="row pt-4">
+        <div class="col-3"></div>
+            <div class="col-3 pl-5">
+                <a class="text-white" href="/">
+                    <button class="btn peach-gradient">Početna</button>
+                </a>
+            </div>
+        <div class="col-3"></div>
+    </div>
+</div>
+@endsection
