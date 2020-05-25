@@ -26,12 +26,12 @@
                     <td>{{$ticket->created_at}}</td>
                     <td>{{$ticket->updated_at}}</td>
                     <td>
-                        <a class="text-white" href="/tickets/{{$ticket->id}}/edit">
+                        <a class="text-white" href="{{route('tickets.edit',$ticket->id)}}">
                             <button type="button" class="btn btn-green btn-sm m-0">Edit</button>
                         </a>
                     </td>
                     <td>
-                        <form method="POST" action="/tickets/{{$ticket->id}}">
+                        <form method="POST" action="{{route('tickets.destroy',$ticket->id)}}">
                             @csrf
                             @method('DELETE')
                             <button type="submit" class="btn btn-red btn-sm m-0">Delete</button>
@@ -82,10 +82,10 @@
         <a class="text-white" href="/">
             <button type="button" class="btn peach-gradient example z-depth-5">Početna</button>
         </a>
-        <a class="text-white" href="/tickets/{{$ticket->id}}/edit">
+        <a class="text-white" href="{{route('tickets.edit',$ticket->id)}}">
             <button type="button" class="btn tempting-azure-gradient example z-depth-5">Edit</button>
         </a>
-        <form method="POST" action="/tickets/{{$ticket->id}}">
+        <form method="POST" action="{{route('tickets.destroy',$ticket->id)}}">
             @csrf
             @method('DELETE')
             <button type="submit" class=" text-white btn young-passion-gradient example z-depth-5">Delete</button>

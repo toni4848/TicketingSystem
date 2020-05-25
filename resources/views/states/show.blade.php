@@ -19,12 +19,12 @@
                 <tr>
                     <td>{{$state->state}}</td>
                     <td>
-                        <a class="text-white" href="/states/{{$state->id}}/edit">
+                        <a class="text-white" href="{{route('states.edit',$state)}}">
                             <button type="button" class="btn btn-green btn-sm m-0">Edit</button>
                         </a>
                     </td>
                     <td>
-                        <form method="POST" action="/states/{{$state->id}}">
+                        <form method="POST" action="{{route('states.destroy',$state)}}">
                             @csrf
                             @method('DELETE')
                             <button type="submit" class="btn btn-red btn-sm m-0">Delete</button>

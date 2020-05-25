@@ -25,37 +25,37 @@ Route::get('/about', function () {
 
 //States Routes
 
-Route::get('/states', 'StatesController@index');
+Route::get('/states', 'StatesController@index')->name('states.index');
 
-Route::post('/states', 'StatesController@store');
+Route::post('/states', 'StatesController@store')->name('states.store');
 
-Route::get('/states/create','StatesController@create');
+Route::get('/states/create','StatesController@create')->name('states.create');
 
-Route::get('/states/{state}','StatesController@show');
+Route::get('/states/{state}','StatesController@show')->name('states.show');
 
-Route::get('/states/{state}/edit','StatesController@edit');
+Route::get('/states/{state}/edit','StatesController@edit')->name('states.edit');
 
-Route::put('/states/{state}', 'StatesController@update');
+Route::put('/states/{state}', 'StatesController@update')->name('states.update');
 
-Route::delete('/states/{state}', 'StatesController@destroy');
+Route::delete('/states/{state}', 'StatesController@destroy')->name('states.destroy');
 
 //Route::resource('states', 'StatesController');
 
 //Clients Routes
 
-Route::get('/clients', 'ClientsController@index');
+Route::get('/clients', 'ClientsController@index')->name('clients.index');
 
-Route::post('/clients', 'ClientsController@store');
+Route::post('/clients', 'ClientsController@store')->name('clients.store');
 
-Route::get('/clients/create','ClientsController@create');
+Route::get('/clients/create','ClientsController@create')->name('clients.create');
 
-Route::get('/clients/{client}','ClientsController@show');
+Route::get('/clients/{client}','ClientsController@show')->name('clients.show');
 
-Route::get('/clients/{client}/edit','ClientsController@edit');
+Route::get('/clients/{client}/edit','ClientsController@edit')->name('clients.edit');
 
-Route::put('/clients/{client}', 'ClientsController@update');
+Route::put('/clients/{client}', 'ClientsController@update')->name('clients.update');
 
-Route::delete('/clients/{client}', 'ClientsController@destroy');
+Route::delete('/clients/{client}', 'ClientsController@destroy')->name('clients.destroy');
 
 
 Route::get('/users', 'UserController@index');
@@ -66,11 +66,20 @@ Route::get('/users/{user}/edit', 'UserController@edit');
 Route::put('/users/{user}', 'UserController@update');
 Route::delete('/users/{user}', 'UserController@destroy');
 
-Route::get('/tickets','TicketsController@index');
-Route::post('/tickets','TicketsController@store');
-Route::get('/tickets/create', 'TicketsController@create');
-Route::get('/tickets/{ticket}','TicketsController@show');
-Route::get('/userTickets', 'TicketsController@userTickets');
-Route::put('/tickets/{ticket}','TicketsController@update');
-Route::delete('/tickets/{ticket}','TicketsController@destroy');
-Route::get('/tickets/{ticket}/edit','TicketsController@edit');
+Route::get('/tickets','TicketsController@index')->name('tickets.index');
+
+Route::post('/tickets','TicketsController@store')->name('tickets.store');
+
+Route::get('/tickets/create', 'TicketsController@create')->name('tickets.create');
+
+Route::get('/tickets/{ticket}','TicketsController@show')->name('tickets.show');
+
+Route::get('/userTickets', 'TicketsController@userTickets')->name('tickets.userTickets');
+
+Route::get('/tickets/{ticket}/edit','TicketsController@edit')->name('tickets.edit');
+
+Route::put('/tickets/{ticket}','TicketsController@update')->name('tickets.update');
+
+Route::delete('/tickets/{ticket}','TicketsController@destroy')->name('tickets.destroy');
+
+

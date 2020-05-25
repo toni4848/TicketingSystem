@@ -18,7 +18,7 @@ class TicketsController extends Controller
     public function index()
     {
         $tickets = Ticket::paginate(10);
-        return view ('tickets.index', ['tickets'=>$tickets]);
+        return view ('tickets.index', compact('tickets'));
     }
 
     /**
@@ -42,14 +42,7 @@ class TicketsController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request, [
-            'title'=>'required|max: 45',
-            'body'=>'required|max: 255',
-            'state'=>'required',
-            'user'=>'required',
-            'client'=>'required'
-
-        ]);
+       $this->validateTicket();
 
         $ticket = new Ticket([
             'title' => $request->input('title'),
@@ -60,7 +53,8 @@ class TicketsController extends Controller
         ]);
 
         $ticket->save();
-        return redirect('/tickets');
+        //Ticket::create($this->validateTicket());
+        return redirect(route('tickets.index'))->with('success', 'Ticket created!');
     }
 
     /**
@@ -71,7 +65,7 @@ class TicketsController extends Controller
      */
     public function show(Ticket $ticket)
     {
-        return view('tickets.show', ['ticket'=>$ticket]);
+        return view('tickets.show', compact('ticket'));
     }
 
     /**
@@ -91,32 +85,24 @@ class TicketsController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Ticket  $ticket
-     * @return \Illuminate\Http\Response
+     * param  \Illuminate\Http\Request  $request
+     * param  \App\Ticket  $ticket
+     * return \Illuminate\Http\Response
      */
-    public function update(Request $request, Ticket $ticket)
+    public function update($id)
     {
-        $ticket = Ticket::findOrFail($ticket);
+        $ticket = Ticket::findOrFail($id);
 
-        $this->validate($request, [
-            'title'=>'required|max: 45',
-            'body'=>'required|max: 255',
-            'state'=>'required',
-            'user'=>'required',
-            'client'=>'required'
+        $this->validateTicket();
 
-        ]);
-        $ticket = new Ticket([
-            'title' => $request->input('title'),
-            'body' => $request->input('body'),
-            'state_id' => $request->input('state'),
-            'client_id' => $request->input('client'),
-            'user_id' => $request->input('user')
-        ]);
-
+        $ticket->body = request('title');
+        $ticket->body = request('body');
+        $ticket->state_id = request('state');
+        $ticket->user_id = request('user');
+        $ticket->client_id = request('client');
         $ticket->save();
-        return redirect('/tickets/'.$ticket->id);
+        //$ticket->update($this->validateTicket());
+        return redirect(route('tickets.show',$ticket))->with('success', 'Ticket updated!');
     }
 
     /**
@@ -128,18 +114,24 @@ class TicketsController extends Controller
     public function destroy(Ticket $ticket)
     {
         $ticket->delete();
-        return redirect('/tickets');
+        return redirect(route('tickets.index'))->with('success', 'Ticket deleted!');
     }
 
     public function  userTickets(){
 
         $tickets = Ticket::where('user_id');
-        return view ('tickets.index', ['tickets'=>$tickets]);
+        return view ('tickets.index', compact('tickets'));
 
     }
 
-    public function  validateTicket(Request $request){
-
+    public function  validateTicket(){
+        return request()->validate([
+            'title'=>'required|max: 45',
+            'body'=>'required|max: 255',
+            'state'=>'required',
+            'user'=>'required',
+            'client'=>'required'
+        ]);
     }
 
 }

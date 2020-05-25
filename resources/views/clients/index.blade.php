@@ -30,12 +30,12 @@
                     <td>{{$client->email}}</td>
                     <td>{{$client->adress}}</td>
                     <td>
-                        <a class="text-white" href="/clients/{{$client->id}}">
+                        <a class="text-white" href="{{route('clients.show',$client)}}">
                         <button type="button" class="btn btn-indigo btn-sm m-0">View</button>
                         </a>
                     </td>
                     <td>
-                        <a class="text-white" href="/clients/{{$client->id}}">
+                        <a class="text-white" href="{{route('tickets.create',$client->id)}}">
                             <button type="button" class="btn btn-green btn-sm m-0">Add ticket</button>
                         </a>
                     </td>
@@ -49,7 +49,7 @@
         <a class="text-white" href="/">
         <button class="btn peach-gradient">Početna</button>
         </a>
-        <a class="text-white" href="/clients/create">
+        <a class="text-white" href="{{route('clients.create')}}">
             <button class="btn blue-gradient">Create</button>
         </a>
         <div class="col-sm-12 mt-4">
