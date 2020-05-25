@@ -4,25 +4,27 @@
 <div class="container pt-5">
     <div class="row">
         <div class="col align-self-center">
-            <h1>Users</h1>
+            <h1>Comments</h1>
         </div>
     </div>
     <table class="table">
         <thead>
         <tr>
-            <th scope="col">User ID</th>
-            <th scope="col">Username</th>
-            <th scope="col">Name</th>
+            <th scope="col">ID</th>
+            <th scope="col">Comment</th>
+            <th scope="col">User</th>
+            <th scope="col">Ticket</th>
         </tr>
         </thead>
         <tbody>
-        @foreach($users as $user)
+        @foreach($comments as $comment)
             <tr>
-                <td>{{ $user->id }}</td>
-                <td>{{ $user->username }}</td>
-                <td>{{ $user->name }}</td>
+                <td>{{ $comment->id }}</td>
+                <td>{{ $comment->comment }}</td>
+                <td>{{ $comment->user->name }}</td>
+                <td>{{ $comment->ticket_id }}</td>
                 <td>
-                    <a class="text-white" href="{{ route('users.show', $user->id) }}">
+                    <a class="text-white" href="{{ route('comments.show', $comment) }}">
                     <button type="button" class="btn btn-indigo btn-sm m-0">View</button>
                     </a>
                 </td>
@@ -33,15 +35,8 @@
     <a class="text-white" href="/">
     <button class="btn peach-gradient">Početna</button>
     </a>
-    <a class="text-white" href="{{ route('users.create') }}">
+    <a class="text-white" href="{{ route('comments.create') }}">
         <button class="btn blue-gradient">Create</button>
     </a>
-    <div class="col-sm-12 mt-4">
-        @if(session()->get('success'))
-            <div class="alert alert-success">
-                {{ session()->get('success') }}
-            </div>
-        @endif
-    </div>
 </div>
 @endsection
