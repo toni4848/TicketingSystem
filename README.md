@@ -90,3 +90,5 @@ Dodatno (nije potrebno, ali ako budete turbo brzi):
 - kreiran CRUD i view za tablice state i client na developerToni branchu
 
 - kreiran CRUD i osnovni view za tablicu users
+
+- kreiran CRUD i osnovni view za tablicu tickets

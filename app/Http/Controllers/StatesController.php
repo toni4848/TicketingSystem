@@ -10,14 +10,14 @@ class StatesController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * return \Illuminate\Http\Response
      */
     public function index()
     {
         $states = State::all();
 
 
-        return view('states.index',['states'=>$states]);
+        return view('states.index',compact('states'));
 
     }
 
@@ -46,7 +46,7 @@ class StatesController extends Controller
 
         State::create($this->validateState());
 
-        return redirect('/states');
+        return redirect(route('states.index'))->with('success', 'State created!');
 
     }
 
@@ -60,7 +60,7 @@ class StatesController extends Controller
     {
         //$state = State::findOrFail($id);
         //return $state;
-        return view('states.show', ['state'=>$state]);
+        return view('states.show', compact('state'));
     }
 
     /**
@@ -72,7 +72,7 @@ class StatesController extends Controller
     public function edit(State $state)
     {
         //$state = State::findOrFail($id);
-        return view('states.edit',['state'=>$state]);
+        return view('states.edit',compact('state'));
     }
 
     /**
@@ -91,7 +91,7 @@ class StatesController extends Controller
         //$state->state = request('state');
         //$state->save();
 
-        return redirect('/states/'.$state->id)->with('Success', 'State updated!');
+        return redirect(route('states.show', $state))->with('success', 'State updated!');
     }
 
     /**
@@ -106,7 +106,7 @@ class StatesController extends Controller
         //$state = State::findOrFail($id);
         $state->delete();
 
-        return redirect('/states')->with('success', 'State deleted!');
+        return redirect(route('states.index'))->with('success', 'State deleted!');
 
     }
 
