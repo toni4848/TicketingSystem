@@ -32,8 +32,6 @@
                 <h4 class="pb-2 pt-4">Comments</h4>
                 <a href="{{ route('comments.index') }}">Comments</a>
                 <a href="{{ route('comments.create') }}">Create comment</a>
-                <a href="{{route('clients.index')}}">Clients (GET/clients)</a>
-                <a href="{{route('clients.create')}}">Clients (GET/clients/create)</a>
                 <h4 class="pb-2 pt-4">Ticket</h4>
                 <a href="/tickets">Tickets (GET/clients)</a>
                 <a href="/tickets/create">Tickets (GET/tickets/create)</a>
