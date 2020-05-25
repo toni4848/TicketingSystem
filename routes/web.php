@@ -77,6 +77,8 @@ Route::get('/comments/{comment}/edit', 'CommentController@edit')->name('comments
 Route::put('/comments/{comment}', 'CommentController@update')->name('comments.update');
 Route::delete('/comments/{comment}', 'CommentController@destroy')->name('comments.destroy');
 
+//Tickets routes
+
 Route::get('/tickets','TicketsController@index')->name('tickets.index');
 
 Route::post('/tickets','TicketsController@store')->name('tickets.store');

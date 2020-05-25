@@ -24,8 +24,8 @@
                 <a href="{{route('states.index')}}">States (GET/states)</a>
                 <a href="{{route('states.create')}}">States (GET/states/create)</a>
                 <h4 class="pb-2 pt-4">Clients</h4>
-                <a href="/clients">Clients (GET/clients)</a>
-                <a href="/clients/create">Clients (GET/clients/create)</a>
+                <a href="{{route('clients.index')}}">Clients (GET/clients)</a>
+                <a href="{{route('clients.create')}}">Clients (GET/clients/create)</a>
                 <h4 class="pb-2 pt-4">Users</h4>
                 <a href="{{ route('users.index') }}">Users</a>
                 <a href="{{ route('users.create') }}">Create user</a>
@@ -33,8 +33,8 @@
                 <a href="{{ route('comments.index') }}">Comments</a>
                 <a href="{{ route('comments.create') }}">Create comment</a>
                 <h4 class="pb-2 pt-4">Ticket</h4>
-                <a href="/tickets">Tickets (GET/clients)</a>
-                <a href="/tickets/create">Tickets (GET/tickets/create)</a>
+                <a href="{{route('tickets.index')}}">Tickets (GET/clients)</a>
+                <a href="{{route('tickets.create')}}">Tickets (GET/tickets/create)</a>
             </div>
         </div>
     </div>
