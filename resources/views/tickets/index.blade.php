@@ -5,6 +5,12 @@
         <div class="row">
             <div class="col align-self-center">
                 <h1>Tickets (GET/tickets)</h1>
+                <div class="col ">
+                <form class="form-inline md-form mr-auto mb-4">
+                    <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
+                    <button class="btn aqua-gradient btn-rounded btn-sm my-0" type="submit">Search</button>
+                </form>
+                </div>
             </div>
         </div>
         <div>
@@ -31,7 +37,7 @@
                     <td>{{$ticket->client->name}}</td>
                     <td>{{$ticket->user->username}}</td>
                     <td>
-                        <a class="text-white" href="/tickets/{{$ticket->id}}">
+                        <a class="text-white" href="{{route('tickets.show',$ticket->id)}}">
                         <button type="button" class="btn btn-indigo btn-sm m-0">View</button>
                         </a>
                     </td>
@@ -45,7 +51,7 @@
         <a class="text-white" href="/">
         <button class="btn peach-gradient">Početna</button>
         </a>
-        <a class="text-white" href="/tickets/create">
+        <a class="text-white" href="{{route('tickets.create')}}">
             <button class="btn blue-gradient">Create</button>
         </a>
         <div class="col-sm-12 mt-4">
@@ -55,5 +61,8 @@
                 </div>
             @endif
         </div>
+
+
+
     </div>
 @endsection

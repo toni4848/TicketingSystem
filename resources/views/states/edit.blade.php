@@ -12,7 +12,7 @@
             <div class="col-3"></div>
             <!-- Material input -->
             <div class="col-6">
-                <form method="POST" action="/states/{{$state->id}}">
+                <form method="POST" action="{{route('states.update',$state)}}">
                     @csrf
                     @method('PUT')
 

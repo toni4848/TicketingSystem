@@ -25,7 +25,7 @@
                             <td>{{$state->id}}</td>
                             <td>{{$state->state}}</td>
                             <td>
-                                <a class="text-white" href="/states/{{$state->id}}">
+                                <a class="text-white" href="{{route('states.show', $state)}}">
                                     <button type="button" class="btn btn-indigo btn-sm m-0">View</button>
                                 </a>
                             </td>
@@ -38,7 +38,7 @@
         <a class="text-white" href="/">
             <button class="btn peach-gradient">Početna</button>
         </a>
-        <a class="text-white" href="/states/create">
+        <a class="text-white" href="{{route('states.create')}}">
             <button class="btn blue-gradient">Create</button>
         </a>
         <div class="col-sm-12 mt-4">

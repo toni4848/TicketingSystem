@@ -12,7 +12,7 @@
             <div class="col-3"></div>
             <!-- Material input -->
             <div class="col-6">
-                <form method="POST" action="/tickets/{{$ticket->id}}">
+                <form method="POST" action="{{route('tickets.update',$ticket->id)}}">
                     @csrf
                     @method('PUT')
                     <div class="md-form 2">
@@ -43,11 +43,11 @@
                         <p class="help is-danger">{{$errors->first('body')}}</p>
                         @enderror
                     </div>
-
                     <div class="md-form">
                         <select id="user"
                                 class="browser-default custom-select m-2"
                                 name="user">
+                            <option value="">User</option>
                             @foreach($users as $user)
                                 <option value="{{$user->id}}">{{$user->username}}</option>
                             @endforeach
@@ -63,6 +63,7 @@
                         <select id="state"
                                 class="browser-default custom-select m-2"
                                 name="state">
+                            <option value="">State</option>
                             @foreach($states as $state)
                                 <option value="{{$state->id}}">{{$state->state}}</option>
                             @endforeach
@@ -78,6 +79,7 @@
                         <select id="client"
                                 class="browser-default custom-select m-2"
                                 name="client">
+                            <option value="">Client</option>
                             @foreach($clients as $client)
                                 <option value="{{$client->id}}">{{$client->name}}</option>
                             @endforeach
@@ -89,6 +91,7 @@
                         @endif
 
                     </div>
+
                     <button class="btn blue-gradient text-white " type="submit">Edit (PUT/Tickets/{ticket})</button>
                 </form>
             </div>

@@ -17,7 +17,7 @@ class ClientsController extends Controller
         $clients = Client::paginate(10);
 
 
-        return view('clients.index',['clients'=>$clients]);
+        return view('clients.index',compact('clients'));
     }
 
     /**
@@ -40,7 +40,7 @@ class ClientsController extends Controller
     {
         Client::create($this->validateAttributes());
 
-        return redirect('/clients');
+        return redirect(route('clients.index'))->with('success', 'Client created!');
     }
 
     /**
@@ -52,7 +52,7 @@ class ClientsController extends Controller
     public function show(Client $client)
     {
 
-        return view('clients.show', ['client'=>$client]);
+        return view('clients.show', compact('client'));
     }
 
     /**
@@ -64,7 +64,7 @@ class ClientsController extends Controller
     public function edit(Client $client)
     {
 
-        return view('clients.edit',['client'=>$client]);
+        return view('clients.edit',compact('client'));
     }
 
     /**
@@ -79,7 +79,7 @@ class ClientsController extends Controller
 
         $client->update($this->validateAttributes());
 
-        return redirect('/clients/'.$client->id)->with('Success', 'Client updated!');
+        return redirect(route('clients.show',$client))->with('success', 'Client updated!');
     }
 
     /**
@@ -93,7 +93,7 @@ class ClientsController extends Controller
 
         $client->delete();
 
-        return redirect('/clients')->with('Success', 'Client deleted!');
+        return redirect(route('clients.index'))->with('success', 'Client deleted!');
     }
 
     /**

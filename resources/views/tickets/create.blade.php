@@ -12,7 +12,7 @@
             <div class="col-3"></div>
             <!-- Material input -->
             <div class="col-6">
-                <form method="POST" action="/tickets">
+                <form method="POST" action="{{route('tickets.store')}}">
                     @csrf
 
                     <div class="md-form 2">

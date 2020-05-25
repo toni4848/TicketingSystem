@@ -12,7 +12,7 @@
             <div class="col-3"></div>
             <!-- Material input -->
             <div class="col-6">
-                <form method="POST" action="/clients/{{$client->id}}">
+                <form method="POST" action="{{route('clients.update',$client)}}">
                     @csrf
                     @method('PUT')
 

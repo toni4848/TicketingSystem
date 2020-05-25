@@ -21,13 +21,13 @@
                     <td>{{$client->email}}</td>
                     <td>{{$client->adress}}</td>
                     <td>
-                        <a class="text-white" href="/clients/{{$client->id}}/edit">
+                        <a class="text-white" href="{{route('clients.edit',$client)}}">
                             <button type="button" class="btn btn-green btn-sm m-0">Edit</button>
                         </a>
                     </td>
                     <td>
 
-                        <form method="POST" action="/clients/{{$client->id}}">
+                        <form method="POST" action="{{route('clients.destroy',$client)}}">
                             @csrf
                             @method('DELETE')
                             <button type="submit" class="btn btn-red btn-sm m-0">Delete</button>
