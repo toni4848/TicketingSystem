@@ -1,5 +1,9 @@
 @extends('layout')
 
+@section('linked')
+    <span>Dashboard</span>
+@endsection
+
 @section('content')
     <div class="flex-center position-ref full-height">
         @if (Route::has('login'))

@@ -1,5 +1,13 @@
 @extends('layout')
 
+@section('linked')
+    <span><a href="{{route('states.index')}}">States</a></span>
+    <span> / </span>
+    <span><a href="{{route('states.show',$state)}}">State {{$state->id}} - {{$state->state}}</a></span>
+    <span> / </span>
+    <span>Edit</span>
+@endsection
+
 @section('content')
 
     <div class="container pt-5">

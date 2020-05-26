@@ -1,5 +1,9 @@
 @extends('layout')
 
+@section('linked')
+    <span>Clients</span>
+@endsection
+
 @section('content')
     <div class="container pt-5">
         <div class="row">

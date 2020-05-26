@@ -1,5 +1,9 @@
 @extends('layout')
 
+@section('linked')
+    <span><a href="{{route('states.index')}}">States</a></span><span> / </span><span>State {{$state->id}} - {{$state->state}}</span>
+@endsection
+
 @section('content')
     <div class="container pt-5">
         <div class="row">
