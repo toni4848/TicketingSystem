@@ -7,8 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 class Comment extends Model
 {
     
-    public function post(){
-        return $this->belongsTo(Post::class);
+    public function ticket(){
+        return $this->belongsTo(Ticket::class);
     }
 
     public function user(){

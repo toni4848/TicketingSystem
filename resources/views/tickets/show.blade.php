@@ -90,8 +90,29 @@
             @method('DELETE')
             <button type="submit" class=" text-white btn young-passion-gradient example z-depth-5">Delete</button>
         </form>
+        <a class="text-white" href="{{route('comments.create')}}">
+            <button type="button" class="btn blue-gradient example z-depth-5">Leave a comment</button>
+        </a>
         </div>
 
+        <div class="col align-self-center" style="margin-top: 40px">
+            <h1>Comments</h1>
+        </div>
+        @foreach ($ticket->comments as $comment)
+            <div class="p-2">
+                <div class="card">
+                    <div class="card-header">
+                        {{ $comment->user->name }}
+                        <span style="float: right">
+                            {{ $comment->updated_at }}
+                        </span>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text">{{ $comment->comment }}</p>
+                    </div>
+                </div>
+        </div>
+        @endforeach
         <div class="col-sm-12 p-4">
             @if(session()->get('success'))
                 <div class="alert alert-success">
