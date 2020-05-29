@@ -132,7 +132,7 @@
                            aria-haspopup="true" aria-expanded="false">Comments</a>
                         <div class="dropdown-menu dropdown-primary" aria-labelledby="navbarDropdownMenuLink">
                             <a class="dropdown-item" href="{{route('comments.index')}}">View Comments</a>
-                            <!--<a class="dropdown-item" href="{route('comments.create')}">Add Comment</a>-->
+                            <a class="dropdown-item" href="{{route('comments.create')}}">Add Comment</a>
 
                         </div>
                     </li>

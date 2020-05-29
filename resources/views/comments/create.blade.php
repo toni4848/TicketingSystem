@@ -28,6 +28,38 @@
                         @enderror
                     </div>
 
+                    <div class="md-form">
+                        <select id="ticket_id"
+                                class="browser-default custom-select m-2"
+                                name="ticket_id">
+                            <option value="">Ticket</option>
+                            @foreach($tickets as $ticket)
+                                <option value="{{$ticket->id}}">{{$ticket->title}}</option>
+                            @endforeach
+                        </select>
+                        @if ($errors->has('ticket'))
+                            <span class="help-block">
+                                        <strong>{{ $errors->first('ticket') }}</strong>
+                                    </span>
+                        @endif
+                    </div>
+
+                    <div class="md-form">
+                        <select id="user_id"
+                                class="browser-default custom-select m-2"
+                                name="user_id">
+                            <option value="">User</option>
+                            @foreach($users as $user)
+                                <option value="{{$user->id}}">{{$user->username}}</option>
+                            @endforeach
+                        </select>
+                        @if ($errors->has('user'))
+                            <span class="help-block">
+                                        <strong>{{ $errors->first('user') }}</strong>
+                                    </span>
+                        @endif
+                    </div>
+
                     <button class="btn blue-gradient text-white " type="submit">Post</button>
 
                 </form>

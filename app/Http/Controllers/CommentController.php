@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\User;
+use App\Ticket;
 use App\Comment;
 use Illuminate\Http\Request;
 
@@ -26,7 +28,9 @@ class CommentController extends Controller
      */
     public function create()
     {
-        return view('comments.create');
+        $users = User::all();
+        $tickets = Ticket::all();
+        return view('comments.create', compact('users', 'tickets'));
     }
 
     /**
