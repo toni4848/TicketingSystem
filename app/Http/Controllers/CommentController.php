@@ -38,17 +38,18 @@ class CommentController extends Controller
     public function store(Request $request)
     {
         request()->validate([
-            'comment' => ['required', 'max:255']
+            'comment' => ['required', 'max:255'],
+            'user_id' => 'required',
+            'ticket_id' => 'required'
         ]);
 
-        //Hardcoded user_id and ticket_id for now
         Comment::create([
             'comment' => request('comment'),
-            'user_id' => 3,
-            'ticket_id' => 1
+            'user_id' => request('user_id'),
+            'ticket_id' => request('ticket_id')
         ]);
 
-        return redirect(route('comments.index'));
+        return redirect(route('tickets.show', $request->ticket_id));
     }
 
     /**

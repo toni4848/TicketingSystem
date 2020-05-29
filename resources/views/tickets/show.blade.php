@@ -90,13 +90,34 @@
             @method('DELETE')
             <button type="submit" class=" text-white btn young-passion-gradient example z-depth-5">Delete</button>
         </form>
-        <a class="text-white" href="{{route('comments.create')}}">
-            <button type="button" class="btn blue-gradient example z-depth-5">Leave a comment</button>
-        </a>
         </div>
 
         <div class="col align-self-center" style="margin-top: 40px">
             <h1>Comments</h1>
+        </div>
+        <div class="col-sm-8">
+                    <form method="POST" action="{{ route('comments.store') }}">
+                        @csrf
+    
+                        <div class="md-form 2">
+                            <textarea id="comment"
+                            name="comment"
+                            class="md-textarea md-textarea-auto form-control
+                            @error('comment') is-danger @enderror"
+                            style="resize: none"
+                            rows="2"
+                            style="width: 100%"></textarea>
+                            <label for="comment">Leave a comment</label>
+    
+                            @error('comment')
+                                <p class="help is-danger">{{ $errors->first('comment') }}</p>
+                            @enderror
+                        </div>
+                        <input type="hidden" name="ticket_id" value="{{ $ticket->id }}"/>
+                        <input type="hidden" name="user_id" value="{{ $ticket->user_id }}"/>
+                        <button class="btn blue-gradient text-white " type="submit">Post</button>
+    
+                    </form>
         </div>
         @foreach ($ticket->comments as $comment)
             <div class="p-2">
