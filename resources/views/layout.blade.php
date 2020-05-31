@@ -85,6 +85,9 @@
         .m-b-md {
             margin-bottom: 30px;
         }
+        .t{
+            min-height: 80%;
+        }
     </style>
 </head>
 
@@ -113,55 +116,55 @@
 
                 <!-- Left -->
                 <ul class="navbar-nav mr-auto">
-                    <li class="nav-item active">
+                    <li class="nav-item {{Request::path() === '/' ? 'active' : ''}}">
                         <a class="nav-link waves-effect" href="/">Home
                             <span class="sr-only">(current)</span>
                         </a>
                     </li>
-                    <li class="nav-item dropdown">
+                    <li class="nav-item dropdown {{Route::is('tickets.index','tickets.create') ? 'active' : ''}}">
                         <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown"
                            aria-haspopup="true" aria-expanded="false">Tickets</a>
                         <div class="dropdown-menu dropdown-primary" aria-labelledby="navbarDropdownMenuLink">
-                            <a class="dropdown-item" href="{{route('tickets.index')}}">View Tickets</a>
-                            <a class="dropdown-item" href="{{route('tickets.create')}}">Add Ticket</a>
+                            <a class="dropdown-item {{Route::is('tickets.index') ? 'active' : ''}}" href="{{route('tickets.index')}}">View Tickets</a>
+                            <a class="dropdown-item {{Route::is('tickets.create') ? 'active' : ''}}" href="{{route('tickets.create')}}">Add Ticket</a>
                         </div>
                     </li>
                     <!-- Dropdown -->
-                    <li class="nav-item dropdown">
+                    <li class="nav-item dropdown {{Route::is('comments.index','comments.create') ? 'active' : ''}}">
                         <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown"
                            aria-haspopup="true" aria-expanded="false">Comments</a>
                         <div class="dropdown-menu dropdown-primary" aria-labelledby="navbarDropdownMenuLink">
-                            <a class="dropdown-item" href="{{route('comments.index')}}">View Comments</a>
-                            <a class="dropdown-item" href="{{route('comments.create')}}">Add Comment</a>
+                            <a class="dropdown-item {{Route::is('comments.index') ? 'active' : ''}}" href="{{route('comments.index')}}">View Comments</a>
+                            <a class="dropdown-item {{Route::is('comments.create') ? 'active' : ''}}" href="{{route('comments.create')}}">Add Comment</a>
 
                         </div>
                     </li>
                     <!-- Dropdown -->
-                    <li class="nav-item dropdown">
+                    <li class="nav-item dropdown {{Route::is('clients.index','clients.create') ? 'active' : ''}}">
                         <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown"
                            aria-haspopup="true" aria-expanded="false">Clients</a>
                         <div class="dropdown-menu dropdown-primary" aria-labelledby="navbarDropdownMenuLink">
-                            <a class="dropdown-item" href="{{route('clients.index')}}">View Clients</a>
-                            <a class="dropdown-item" href="{{route('clients.create')}}">Add Client</a>
+                            <a class="dropdown-item {{Route::is('clients.index') ? 'active' : ''}}" href="{{route('clients.index')}}">View Clients</a>
+                            <a class="dropdown-item {{Route::is('clients.create') ? 'active' : ''}}" href="{{route('clients.create')}}">Add Client</a>
                         </div>
                     </li>
                     <!-- Dropdown -->
-                    <li class="nav-item dropdown">
+                    <li class="nav-item dropdown {{Route::is('states.index','states.create','states.show','states.edit') ? 'active' : ''}}">
                         <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown"
                            aria-haspopup="true" aria-expanded="false">States</a>
                         <div class="dropdown-menu dropdown-primary" aria-labelledby="navbarDropdownMenuLink">
-                            <a class="dropdown-item" href="{{route('states.index')}}">View States</a>
-                            <a class="dropdown-item" href="{{route('states.create')}}">Create State</a>
+                            <a class="dropdown-item {{Route::is('states.index') ? 'active' : ''}}" href="{{route('states.index')}}">View States</a>
+                            <a class="dropdown-item {{Route::is('states.create') ? 'active' : ''}}" href="{{route('states.create')}}">Create State</a>
 
                         </div>
                     </li>
                     <!-- Dropdown -->
-                    <li class="nav-item dropdown">
+                    <li class="nav-item dropdown {{Route::is('users.index','users.create') ? 'active' : ''}}">
                         <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown"
                            aria-haspopup="true" aria-expanded="false">Users</a>
                         <div class="dropdown-menu dropdown-primary" aria-labelledby="navbarDropdownMenuLink">
-                            <a class="dropdown-item" href="{{route('users.index')}}">View Users</a>
-                            <a class="dropdown-item" href="{{route('users.create')}}">Create User</a>
+                            <a class="dropdown-item {{Route::is('users.index') ? 'active' : ''}}" href="{{route('users.index')}}">View Users</a>
+                            <a class="dropdown-item {{Route::is('users.create') ? 'active' : ''}}" href="{{route('users.create')}}">Create User</a>
                         </div>
                     </li>
                 </ul>
@@ -189,12 +192,12 @@
         </a>
 
         <div class="list-group list-group-flush">
-            <a href="/" class="list-group-item active waves-effect">
+            <a href="/" class="list-group-item list-group-item-action waves-effect {{Request::path() === '/' ? 'active' : ''}}">
                 <i class="fas fa-chart-pie mr-3"></i>Home
             </a>
-            <a href="#" class="list-group-item list-group-item-action waves-effect">
+            <a href="{{route('clients.index')}}" class="list-group-item list-group-item-action waves-effect {{Route::is('clients.index') ? 'active' : ''}}">
                 <i class="fas fa-ticket-alt mr-3"></i>Add Ticket</a>
-            <a href="#" class="list-group-item list-group-item-action waves-effect">
+            <a href="{{route('tickets.index')}}" class="list-group-item list-group-item-action waves-effect {{Route::is('tickets.index') ? 'active' : ''}}">
                 <i class="fas fa-clipboard-list mr-3"></i>Tickets</a>
             <a href="#" class="list-group-item list-group-item-action waves-effect">
                 <i class="fas fa-comment-dots mr-3"></i>Add Comment for Ticket</a>
@@ -209,7 +212,7 @@
 <!--Main Navigation-->
 
 <!--Main layout-->
-<main class="pt-5 mx-lg-5">
+<main class="pt-5 mx-lg-5 t">
     <div class="container-fluid mt-5">
 
         <!-- Heading -->
@@ -264,9 +267,13 @@
 
     <!--Call to action-->
     <div class="pt-4">
-        <a class="btn btn-outline-white text-white" href="" target="_blank"
+        <a class="btn btn-outline-white text-white" href="{{route('clients.index')}}"
            role="button">Add Ticket
             <i class="fas fa-download ml-2"></i>
+        </a>
+        <a class="btn btn-outline-white text-white" href="/"
+           role="button">Home
+            <i class=""></i>
         </a>
     </div>
     <!--/.Call to action-->

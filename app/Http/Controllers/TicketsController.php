@@ -17,7 +17,7 @@ class TicketsController extends Controller
      */
     public function index()
     {
-        $tickets = Ticket::paginate(10);
+        $tickets = Ticket::latest('created_at')->paginate(10);
         return view ('tickets.index', compact('tickets'));
     }
 
@@ -26,12 +26,19 @@ class TicketsController extends Controller
      *
      * return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($client=null)
     {
         $states =State::all();
         $users =User::all();
-        $clients =Client::all();
-        return view('tickets.create',compact('states','users','clients'));
+        if ($client){
+            $client = Client::findOrFail($client);
+            return view('tickets.create',compact('states','users','client'));
+        }else{
+            $clients =Client::all();
+            $client=null;
+            return view('tickets.create',compact('states','users','clients','client'));
+        }
+
     }
 
     /**
@@ -67,6 +74,7 @@ class TicketsController extends Controller
     {
         return view('tickets.show', compact('ticket'));
     }
+
 
     /**
      * Show the form for editing the specified resource.

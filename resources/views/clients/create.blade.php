@@ -1,14 +1,24 @@
 @extends('layout')
 
+@section('linked')
+    <span><a href="{{route('clients.create')}}">Create Client</a></span>
+@endsection
+
+@section('button')
+    <a class="text-white d-flex" href="/">
+        <button class="btn peach-gradient btn-sm my-0 p">Home</button>
+    </a>
+@endsection
+
 @section('content')
 
 <div class="container pt-5">
     <div class="row">
     <div class="col align-self-center">
-        <h1>Client (GET/create)</h1>
+        <h1 class="text-center">Create Client</h1>
     </div>
     </div>
-    <div class="row pt-5 pl-5">
+    <div class="row pt-5">
         <div class="col-3"></div>
             <!-- Material input -->
             <div class="col-6">
@@ -60,20 +70,15 @@
                         @enderror
 
                     </div>
-
-                    <button class="btn blue-gradient text-white " type="submit">Client (POST/Clients)</button>
+                    <div class="text-center pt-2">
+                    <button class="btn blue-gradient text-white text-center" type="submit">Store Client</button>
+                    </div>
                 </form>
             </div>
         <div class="col-3"></div>
     </div>
     <div class="row pt-4">
-        <div class="col-3"></div>
-            <div class="col-3 pl-5">
-                <a class="text-white" href="/">
-                    <button class="btn peach-gradient">Početna</button>
-                </a>
-            </div>
-        <div class="col-3"></div>
+
     </div>
 </div>
 

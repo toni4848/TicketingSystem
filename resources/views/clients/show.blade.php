@@ -1,18 +1,33 @@
 @extends('layout')
 
+@section('linked')
+    <span><a href="{{route('clients.index')}}">Clients</a></span><span> / </span><span>Client {{$client->id}} - {{$client->name}}</span>
+@endsection
+
+@section('button')
+    <a class="text-white d-flex" href="{{route('clients.create')}}">
+        <button class="btn blue-gradient btn-sm my-0 p">Create</button>
+    </a>
+    <a class="text-white d-flex" href="/">
+        <button class="btn peach-gradient btn-sm my-0 p">Home</button>
+    </a>
+@endsection
+
 @section('content')
     <div class="container pt-5">
         <div class="row">
             <div class="col align-self-center">
-                <h1>Client (GET/clients/{client})</h1>
+                <h1>Details of Client {{$client->name}}</h1>
             </div>
         </div>
-        <table class="table">
+        <table class="table table-hover">
             <thead>
             <tr>
-                <th scope="col">Client</th>
-                <th scope="col">Edit (GET/clients/{client}/edit</th>
-                <th scope="col">Delete (DELETE/clients/{client}</th>
+                <th scope="col">Name</th>
+                <th scope="col">Email</th>
+                <th scope="col">Adress</th>
+                <th scope="col">Edit</th>
+                <th scope="col">Delete</th>
             </tr>
             </thead>
             <tbody>
@@ -36,9 +51,6 @@
                 </tr>
             </tbody>
         </table>
-        <a class="text-white" href="/">
-            <button class="btn peach-gradient">Početna</button>
-        </a>
         <div class="col-sm-12 p-4">
             @if(session()->get('success'))
                 <div class="alert alert-success">

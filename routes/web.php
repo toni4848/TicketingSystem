@@ -83,7 +83,7 @@ Route::get('/tickets','TicketsController@index')->name('tickets.index');
 
 Route::post('/tickets','TicketsController@store')->name('tickets.store');
 
-Route::get('/tickets/create', 'TicketsController@create')->name('tickets.create');
+Route::get('/tickets/create/{ticket?}', 'TicketsController@create')->name('tickets.create');
 
 Route::get('/tickets/{ticket}','TicketsController@show')->name('tickets.show');
 
