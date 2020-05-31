@@ -5,9 +5,9 @@
 @endsection
 
 @section('button')
-    <form class="d-flex justify-content-center">
+    <form class="d-flex justify-content-center" action="{{route('clients.index')}}" method="GET">
         <!-- Default input -->
-        <input type="search" placeholder="Search clients" aria-label="Search" class="form-control">
+        <input type="search" name="search" placeholder="Search clients" aria-label="Search" class="form-control">
         <button class="btn peach-gradient btn-sm my-0 p" type="submit">
             <i class="fas fa-search"></i>
         </button>

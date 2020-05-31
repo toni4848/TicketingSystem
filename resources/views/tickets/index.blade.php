@@ -5,9 +5,9 @@
 @endsection
 
 @section('button')
-    <form class="d-flex justify-content-center">
+    <form class="d-flex justify-content-center" action="{{route('tickets.index')}}" method="GET">
         <!-- Default input -->
-        <input type="search" placeholder="Search tickets" aria-label="Search" class="form-control">
+        <input type="search" name="search" placeholder="Search tickets" aria-label="Search" class="form-control">
         <button class="btn aqua-gradient btn-sm my-0 p" type="submit">
             <i class="fas fa-search"></i>
         </button>
@@ -29,7 +29,7 @@
         </div>
         <div>
             @if ($tickets->isEmpty())
-                <p>There are currently no states.</p>
+                <p>There are currently no tickets.</p>
             @else
         <table class="table table-hover">
             <thead>

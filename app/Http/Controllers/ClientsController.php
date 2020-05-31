@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Client;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ClientsController extends Controller
 {
@@ -12,12 +13,19 @@ class ClientsController extends Controller
      *
      * return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
+        $search = $request->get('search');
+        if ($search){
+            $clients = Client::where('name', 'like', '%'.$search.'%')
+                ->orWhere('adress', 'like', '%'.$search.'%')
+                ->orWhere('email', 'like', '%'.$search.'%')->paginate(10);
+        }else{
+
         $clients = Client::latest('created_at')->paginate(10);
-
-
+        }
         return view('clients.index',compact('clients'));
+
     }
 
     /**

@@ -15,12 +15,19 @@ class TicketsController extends Controller
      *
      * return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $tickets = Ticket::latest('created_at')->paginate(10);
-        return view ('tickets.index', compact('tickets'));
-    }
+        $search=$request->get('search');
+        if ($search){
+            $tickets= Ticket::where('title','like', '%'.$search.'%')
+                ->orWhere('body', 'like', '%'.$search.'%')->paginate(10);
+        }else{
 
+            $tickets = Ticket::latest('created_at')->paginate(10);
+        }
+        return view ('tickets.index', compact('tickets'));
+
+    }
     /**
      * Show the form for creating a new resource.
      *
