@@ -187,7 +187,7 @@
     <!-- Sidebar -->
     <div class="sidebar-fixed position-fixed">
 
-        <a class="logo-wrapper waves-effect">
+        <a class="logo-wrapper waves-effect" href="/">
             <img src="{{asset('img/unnamed.png')}}" class="img-fluid" alt="">
         </a>
 
