@@ -5,7 +5,7 @@
     <div>
         <p>{{ $comment->comment }}</p>
         <p>Author: {{ $comment->user->name }}</p>
-        <p>Article: {{ $comment->ticket_id }}</p>
+        <p>Ticket: {{ $comment->ticket->title }}</p>
     </div>
 
     <div style="margin-top: 10px">

@@ -26,7 +26,7 @@
                 <td>{{ $comment->id }}</td>
                 <td>{{ $comment->comment }}</td>
                 <td>{{ $comment->user->name }}</td>
-                <td>{{ $comment->ticket_id }}</td>
+                <td>{{ $comment->ticket->title }}</td>
                 <td>
                     <a class="text-white" href="{{ route('comments.show', $comment) }}">
                     <button type="button" class="btn btn-indigo btn-sm m-0">View</button>

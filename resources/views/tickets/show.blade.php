@@ -92,6 +92,48 @@
         </form>
         </div>
 
+        <div class="col align-self-center" style="margin-top: 40px">
+            <h1>Comments</h1>
+        </div>
+        <div class="col-sm-8">
+                    <form method="POST" action="{{ route('comments.store') }}">
+                        @csrf
+    
+                        <div class="md-form 2">
+                            <textarea id="comment"
+                            name="comment"
+                            class="md-textarea md-textarea-auto form-control
+                            @error('comment') is-danger @enderror"
+                            style="resize: none"
+                            rows="2"
+                            style="width: 100%"></textarea>
+                            <label for="comment">Leave a comment</label>
+    
+                            @error('comment')
+                                <p class="help is-danger">{{ $errors->first('comment') }}</p>
+                            @enderror
+                        </div>
+                        <input type="hidden" name="ticket_id" value="{{ $ticket->id }}"/>
+                        <input type="hidden" name="user_id" value="{{ $ticket->user_id }}"/>
+                        <button class="btn blue-gradient text-white " type="submit">Post</button>
+    
+                    </form>
+        </div>
+        @foreach ($ticket->comments as $comment)
+            <div class="p-2">
+                <div class="card">
+                    <div class="card-header">
+                        {{ $comment->user->name }}
+                        <span style="float: right">
+                            {{ $comment->updated_at }}
+                        </span>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text">{{ $comment->comment }}</p>
+                    </div>
+                </div>
+        </div>
+        @endforeach
         <div class="col-sm-12 p-4">
             @if(session()->get('success'))
                 <div class="alert alert-success">
