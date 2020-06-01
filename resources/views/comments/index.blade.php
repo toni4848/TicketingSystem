@@ -4,6 +4,15 @@
     <span>Comments</span>
 @endsection
 
+@section('button')
+    <a class="text-white d-flex" href="{{route('comments.create')}}">
+        <button class="btn blue-gradient btn-sm my-0 p">Create</button>
+    </a>
+    <a class="text-white d-flex" href="/">
+        <button class="btn peach-gradient btn-sm my-0 p">Home</button>
+    </a>
+@endsection
+
 @section('content')
 <div class="container pt-5">
     <div class="row">
@@ -18,6 +27,7 @@
             <th scope="col">Comment</th>
             <th scope="col">User</th>
             <th scope="col">Ticket</th>
+            <th scope="col">View</th>
         </tr>
         </thead>
         <tbody>
@@ -36,11 +46,5 @@
         @endforeach
         </tbody>
     </table>
-    <a class="text-white" href="/">
-    <button class="btn peach-gradient">Početna</button>
-    </a>
-    <a class="text-white" href="{{ route('comments.create') }}">
-        <button class="btn blue-gradient">Create</button>
-    </a>
 </div>
 @endsection

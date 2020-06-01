@@ -1,36 +1,57 @@
 @extends('layout')
 
+@section('linked')
+    <span><a href="{{route('tickets.index')}}">Tickets</a></span><span> / </span><span>Ticket {{$ticket->id}} - {{$ticket->title}}</span>
+@endsection
+
+@section('button')
+    <a class="text-white d-flex" href="{{route('tickets.create')}}">
+        <button class="btn blue-gradient btn-sm my-0 p">Create</button>
+    </a>
+    <a class="text-white" href="{{route('tickets.edit',$ticket->id)}}">
+        <button type="button" class="btn tempting-azure-gradient example btn-sm my-0 p">Edit</button>
+    </a>
+    <form method="POST" action="{{route('tickets.destroy',$ticket->id)}}">
+        @csrf
+        @method('DELETE')
+        <button type="submit" class=" text-white btn young-passion-gradient example btn-sm my-0 p">Delete</button>
+    </form>
+    <a class="text-white d-flex" href="/">
+        <button class="btn peach-gradient btn-sm my-0 p">Home</button>
+    </a>
+@endsection
+
 @section('content')
     <div class="container pt-5">
         <div class="row">
             <div class="col align-self-center">
-                <h1>State (GET/states/{state})</h1>
+                <h1>Ticket {{$ticket->id}}</h1>
             </div>
         </div>
         <div>
             <table class="table">
                 <thead>
                 <tr>
-                    <th scope="col">Title</th>
-                    <th scope="col">State</th>
-                    <th scope="col">Created at</th>
-                    <th scope="col">Updated at</th>
-                    <th scope="col">Edit (GET/tickets/{ticket}/edit</th>
-                    <th scope="col">Delete (DELETE/tickets/{ticket}</th>
+                    <th scope="col" class="text-center">Title</th>
+                    <th scope="col" class="text-center">State</th>
+                    <th scope="col" class="text-center">Created at</th>
+                    <th scope="col" class="text-center">Updated at</th>
+                    <th scope="col" class="text-center">Edit</th>
+                    <th scope="col" class="text-center">Delete</th>
                 </tr>
                 </thead>
                 <tbody>
                 <tr>
-                    <td>{{$ticket->title}}</td>
-                    <td>{{$ticket->state->state}}</td>
-                    <td>{{$ticket->created_at}}</td>
-                    <td>{{$ticket->updated_at}}</td>
-                    <td>
+                    <td class="text-center">{{$ticket->title}}</td>
+                    <td class="text-center">{{$ticket->state->state}}</td>
+                    <td class="text-center">{{$ticket->created_at}}</td>
+                    <td class="text-center">{{$ticket->updated_at}}</td>
+                    <td class="text-center">
                         <a class="text-white" href="{{route('tickets.edit',$ticket->id)}}">
                             <button type="button" class="btn btn-green btn-sm m-0">Edit</button>
                         </a>
                     </td>
-                    <td>
+                    <td class="text-center">
                         <form method="POST" action="{{route('tickets.destroy',$ticket->id)}}">
                             @csrf
                             @method('DELETE')
@@ -77,19 +98,6 @@
                 </div>
             </div>
 
-        </div>
-        <div class="row pl-4">
-        <a class="text-white" href="/">
-            <button type="button" class="btn peach-gradient example z-depth-5">Početna</button>
-        </a>
-        <a class="text-white" href="{{route('tickets.edit',$ticket->id)}}">
-            <button type="button" class="btn tempting-azure-gradient example z-depth-5">Edit</button>
-        </a>
-        <form method="POST" action="{{route('tickets.destroy',$ticket->id)}}">
-            @csrf
-            @method('DELETE')
-            <button type="submit" class=" text-white btn young-passion-gradient example z-depth-5">Delete</button>
-        </form>
         </div>
 
         <div class="col align-self-center" style="margin-top: 40px">
