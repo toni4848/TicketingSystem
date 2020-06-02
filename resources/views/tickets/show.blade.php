@@ -138,6 +138,16 @@
                     </div>
                     <div class="card-body">
                         <p class="card-text">{{ $comment->comment }}</p>
+                        <div>
+                            <form method="POST" action="{{route('comments.destroy', $comment->id)}}">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" style="float: right; margin-left: 5px" class="btn btn-red btn-sm">Delete</button>
+                            </form>
+                            <form method="GET" action="{{route('comments.edit', $comment->id)}}">
+                                    <button type="submit" style="float: right; margin-left: 5px" class="btn btn-green btn-sm">Edit</button>
+                                </form>
+                        </div>
                     </div>
                 </div>
         </div>
