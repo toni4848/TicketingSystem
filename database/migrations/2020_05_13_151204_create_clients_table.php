@@ -19,6 +19,7 @@ class CreateClientsTable extends Migration
             $table->string('email', 80);
             $table->string('adress', 80);
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

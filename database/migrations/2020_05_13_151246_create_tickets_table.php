@@ -21,6 +21,7 @@ class CreateTicketsTable extends Migration
             $table->string('title', 45);
             $table->text('body');
             $table->timestamps();
+            $table->softDeletes();
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('state_id')->references('id')->on('states')->onDelete('cascade');
