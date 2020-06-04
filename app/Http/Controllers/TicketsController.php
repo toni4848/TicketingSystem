@@ -91,9 +91,9 @@ class TicketsController extends Controller
      */
     public function edit(Ticket $ticket)
     {
-        $states =State::all();
-        $users =User::all();
-        $clients =Client::all();
+        $states = State::all();
+        $users = User::all();
+        $clients = Client::all();
         return view('tickets.edit',compact('ticket','states','users','clients'));
     }
 
