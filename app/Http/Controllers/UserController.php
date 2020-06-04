@@ -15,7 +15,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = User::all();
+        $users = User::paginate(10);
 
         return view('users.index', compact('users'));
     }
@@ -39,9 +39,9 @@ class UserController extends Controller
     public function store(Request $request)
     {
         request()->validate([
-            'username' => 'required',
-            'name' => 'required',
-            'password' => 'required'
+            'username' => ['required', 'max:45'],
+            'name' => ['required', 'max:45'],
+            'password' => ['required', 'max:45']
         ]);
 
         User::create([
@@ -85,9 +85,9 @@ class UserController extends Controller
     public function update(Request $request, User $user)
     {
         request()->validate([
-            'username' => 'required',
-            'name' => 'required',
-            'password' => 'required'
+            'username' => ['required', 'max:45'],
+            'name' => ['required', 'max:45'],
+            'password' => ['required', 'max:45']
         ]);
 
         $user->update([

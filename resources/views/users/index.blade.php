@@ -55,6 +55,7 @@
         @endforeach
         </tbody>
     </table>
+    {{$users->render()}}
     @endif
     </div>
     <div class="col-sm-12 mt-4">
