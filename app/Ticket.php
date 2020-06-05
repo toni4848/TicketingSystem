@@ -4,13 +4,11 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Iatstuti\Database\Support\CascadeSoftDeletes;
 
 class Ticket extends Model
 {
 
-    use SoftDeletes, CascadeSoftDeletes;
-    protected $cascadeDeletes = ['comments'];
+    use SoftDeletes;
 
     protected $guarded = [];
 
@@ -25,5 +23,14 @@ class Ticket extends Model
     }
     public function user(){
         return $this->belongsTo(User::class);
+    }
+
+    public static function boot()
+    {
+        parent::boot();
+        static::deleted(function($ticket)
+        {
+            $ticket->comments()->delete();
+        });
     }
 }

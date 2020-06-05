@@ -4,14 +4,11 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Iatstuti\Database\Support\CascadeSoftDeletes;
 
 class State extends Model
 {
 
-    use SoftDeletes, CascadeSoftDeletes;
-
-    protected $cascadeDeletes = ['tickets'];
+    use SoftDeletes;
 
     public $timestamps = false;
     protected $fillable = ['state'];
@@ -19,5 +16,16 @@ class State extends Model
 
     public function tickets(){
         return $this->hasMany(Ticket::class);
+    }
+
+    public static function boot()
+    {
+        parent::boot();
+        static::deleted(function($state)
+        {
+            foreach ($state->tickets()->get() as $ticket) {
+                $ticket->delete();
+              }
+        });
     }
 }
