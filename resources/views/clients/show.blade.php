@@ -1,4 +1,4 @@
-@extends('layout')
+@extends('layouts.layout')
 
 @section('linked')
     <span><a href="{{route('clients.index')}}">Clients</a></span><span> / </span><span>Client {{$client->id}} - {{$client->name}}</span>
@@ -41,12 +41,15 @@
                         </a>
                     </td>
                     <td>
-
+                        @can('admin',$client)
                         <form method="POST" action="{{route('clients.destroy',$client)}}">
                             @csrf
                             @method('DELETE')
                             <button type="submit" class="btn btn-red btn-sm m-0">Delete</button>
                         </form>
+                        @else
+                            <a class="text-center">Forbidden</a>
+                        @endcan
                     </td>
                 </tr>
             </tbody>

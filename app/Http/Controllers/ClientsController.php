@@ -9,23 +9,44 @@ use Illuminate\Support\Facades\DB;
 class ClientsController extends Controller
 {
     /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
+    /**
      * Display a listing of the resource.
      *
      * return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index()
     {
-        $search = $request->get('search');
-        if ($search){
-            $clients = Client::where('name', 'like', '%'.$search.'%')
-                ->orWhere('adress', 'like', '%'.$search.'%')
-                ->orWhere('email', 'like', '%'.$search.'%')->paginate(10);
-        }else{
-
         $clients = Client::latest('created_at')->paginate(10);
-        }
+
         return view('clients.index',compact('clients'));
 
+    }
+
+    public function searchClients(Request $request){
+
+        $search=$request->get('search');
+
+        if ($search){
+            $clients= Client::where('name','like', '%'.$search.'%')
+                ->orWhere('email', 'like', '%'.$search.'%')
+                ->orWhere('adress', 'like', '%'.$search.'%')
+                ->latest('created_at')
+                ->paginate(10);
+        }else{
+
+            $clients = Client::latest('created_at')
+                ->paginate(10);
+        }
+        return view ('clients.index', compact('clients'));
     }
 
     /**
@@ -72,6 +93,7 @@ class ClientsController extends Controller
     public function edit(Client $client)
     {
 
+
         return view('clients.edit',compact('client'));
     }
 
@@ -84,6 +106,7 @@ class ClientsController extends Controller
      */
     public function update(Client $client)
     {
+
 
         $client->update($this->validateAttributes());
 
@@ -99,6 +122,7 @@ class ClientsController extends Controller
     public function destroy(Client $client)
     {
 
+        $this->authorize('admin',$client);
         $client->delete();
 
         return redirect(route('clients.index'))->with('success', 'Client deleted!');

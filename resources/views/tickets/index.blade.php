@@ -1,11 +1,11 @@
-@extends('layout')
+@extends('layouts.layout')
 
 @section('linked')
     <span>Tickets</span>
 @endsection
 
 @section('button')
-    <form class="d-flex justify-content-center" action="{{route('tickets.index')}}" method="GET">
+    <form class="d-flex justify-content-center" action="{{route('tickets.searchTickets')}}" method="GET">
         <!-- Default input -->
         <input type="search" name="search" placeholder="Search tickets" aria-label="Search" class="form-control">
         <button class="btn aqua-gradient btn-sm my-0 p" type="submit">

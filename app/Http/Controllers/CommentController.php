@@ -10,6 +10,16 @@ use Illuminate\Http\Request;
 class CommentController extends Controller
 {
     /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
+    /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
@@ -28,9 +38,8 @@ class CommentController extends Controller
      */
     public function create()
     {
-        $users = User::all();
         $tickets = Ticket::all();
-        return view('comments.create', compact('users', 'tickets'));
+        return view('comments.create', compact('tickets'));
     }
 
     /**
@@ -41,19 +50,19 @@ class CommentController extends Controller
      */
     public function store(Request $request)
     {
+        $user=auth()->user()->id;
         request()->validate([
             'comment' => ['required', 'max:255'],
-            'user_id' => 'required',
             'ticket_id' => 'required'
         ]);
 
         Comment::create([
             'comment' => request('comment'),
-            'user_id' => request('user_id'),
+            'user_id' => $user,
             'ticket_id' => request('ticket_id')
         ]);
 
-        return redirect(route('tickets.show', $request->ticket_id));
+        return redirect(route('tickets.show', $request->ticket_id))->with('success', 'Comment stored!');;
     }
 
     /**
@@ -75,6 +84,7 @@ class CommentController extends Controller
      */
     public function edit(Comment $comment)
     {
+        $this->authorize('update',$comment);
         return view('comments.edit', compact('comment'));
     }
 
@@ -87,9 +97,10 @@ class CommentController extends Controller
      */
     public function update(Request $request, Comment $comment)
     {
+        $this->authorize('update',$comment);
         $comment->update($this->validateComment());
 
-        return redirect(route('tickets.show', $comment->ticket_id));
+        return redirect(route('tickets.show', $comment->ticket_id))->with('success', 'Comment updated!');
     }
 
     /**
@@ -100,9 +111,10 @@ class CommentController extends Controller
      */
     public function destroy(Comment $comment)
     {
+        $this->authorize('delete',$comment);
         $comment->delete();
 
-        return redirect(route('tickets.show', $comment->ticket_id));
+        return redirect(route('tickets.show', $comment->ticket_id))->with('success', 'Comment deleted!');
     }
 
     public function validateComment(): array

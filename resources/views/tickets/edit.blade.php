@@ -1,4 +1,4 @@
-@extends('layout')
+@extends('layouts.layout')
 
 @section('linked')
     <span><a href="{{route('tickets.index')}}">Tickets</a></span>
@@ -56,21 +56,6 @@
                         @error('body')
                         <p class="help is-danger">{{$errors->first('body')}}</p>
                         @enderror
-                    </div>
-                    <div class="md-form">
-                        <select id="user"
-                                class="browser-default custom-select m-2"
-                                name="user">
-                            <option value="">User</option>
-                            @foreach($users as $user)
-                                <option value="{{$user->id}}">{{$user->username}}</option>
-                            @endforeach
-                        </select>
-                        @if ($errors->has('user'))
-                            <span class="help-block">
-                                        <strong>{{ $errors->first('user') }}</strong>
-                                    </span>
-                        @endif
                     </div>
 
                     <div class="md-form">

@@ -1,4 +1,4 @@
-@extends('layout')
+@extends('layouts.layout')
 
 @section('linked')
     <span><a href="{{route('users.index')}}">Users</a></span>
@@ -53,6 +53,21 @@
 
                         @error('username')
                             <p class="help is-danger">{{ $errors->first('username') }}</p>
+                        @enderror
+                    </div>
+
+                    <div class="md-form 2">
+                        <input type="email"
+                               id="email"
+                               name="email"
+                               value="{{$user->email}}"
+                               class="form-control @error('email') is-danger @enderror"
+                               required
+                               autocomplete="email" autofocus>
+                        <label for="email">Email</label>
+
+                        @error('email')
+                        <p class="help is-danger">{{$errors->first('email')}}</p>
                         @enderror
                     </div>
 

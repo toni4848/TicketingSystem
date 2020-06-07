@@ -1,4 +1,4 @@
-@extends('layout')
+@extends('layouts.layout')
 
 @section('linked')
     <span><a href="{{route('clients.index')}}">Clients</a></span>
@@ -46,12 +46,13 @@
                     </div>
                     <div class="md-form 2">
                         <i class="fas fa-at prefix"></i>
-                        <input type="text"
+                        <input type="email"
                                id="email"
                                name="email"
                                value="{{$client->email}}"
                                class="form-control @error('email') is-danger @enderror"
-                               required>
+                               required
+                               autocomplete="email" autofocus>
                         <label for="email">Email</label>
 
                         @error('email')

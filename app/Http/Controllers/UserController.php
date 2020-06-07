@@ -9,12 +9,24 @@ use Illuminate\Http\Request;
 class UserController extends Controller
 {
     /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
+    /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
     public function index()
     {
+
+        $this->authorize('admin');
         $users = User::all();
 
         return view('users.index', compact('users'));
@@ -27,6 +39,7 @@ class UserController extends Controller
      */
     public function create()
     {
+        $this->authorize('admin');
         return view('users.create');
     }
 
@@ -38,19 +51,22 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
+        $this->authorize('admin',$request);
         request()->validate([
-            'username' => 'required',
+            'username' => ['required','unique:users'],
             'name' => 'required',
-            'password' => 'required'
+            'email' => ['required','unique:users',],
+            'password' => ['required','min:8']
         ]);
 
         User::create([
             'username' => request('username'),
             'name' => request('name'),
+            'email' => request('email'),
             'password' => Hash::make(request('password'))
         ]);
         
-        return redirect(route('users.index'));
+        return redirect(route('users.index'))->with('success', 'User stored!');
     }
 
     /**
@@ -61,6 +77,8 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
+
+        $this->authorize('update', $user);
         return view('users.show', compact('user'));
     }
 
@@ -72,6 +90,7 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
+        $this->authorize('update', $user);
         return view('users.edit', compact('user'));
     }
 
@@ -84,6 +103,8 @@ class UserController extends Controller
      */
     public function update(Request $request, User $user)
     {
+
+        $this->authorize('update', $user);
         request()->validate([
             'username' => 'required',
             'name' => 'required',
@@ -96,7 +117,7 @@ class UserController extends Controller
             'password' => Hash::make(request('password'))
         ]);
 
-        return redirect(route('users.show', $user));
+        return redirect(route('users.show', $user))->with('success', 'User updated!');
     }
 
     /**
@@ -107,8 +128,9 @@ class UserController extends Controller
      */
     public function destroy(User $user)
     {
+        $this->authorize('admin',$user);
         $user->delete();
         
-        return redirect(route('users.index'));
+        return redirect(route('users.index'))->with('success', 'User deleted!');
     }
 }

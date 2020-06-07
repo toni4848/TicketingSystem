@@ -1,21 +1,26 @@
-@extends('layout')
+@extends('layouts.layout')
 
 @section('linked')
-    <span><a href="{{route('tickets.index')}}">Tickets</a></span><span> / </span><span>Ticket {{$ticket->id}} - {{$ticket->title}}</span>
+    <span><a href="{{route('tickets.index')}}">Tickets</a></span><span> / </span>
+    <span>Ticket {{$ticket->id}} - {{$ticket->title}}</span>
 @endsection
 
 @section('button')
     <a class="text-white d-flex" href="{{route('tickets.create')}}">
         <button class="btn blue-gradient btn-sm my-0 p">Create</button>
     </a>
-    <a class="text-white" href="{{route('tickets.edit',$ticket->id)}}">
-        <button type="button" class="btn tempting-azure-gradient example btn-sm my-0 p">Edit</button>
-    </a>
-    <form method="POST" action="{{route('tickets.destroy',$ticket->id)}}">
-        @csrf
-        @method('DELETE')
-        <button type="submit" class=" text-white btn young-passion-gradient example btn-sm my-0 p">Delete</button>
-    </form>
+    @can('update',$ticket)
+        <a class="text-white" href="{{route('tickets.edit',$ticket->id)}}">
+            <button type="button" class="btn tempting-azure-gradient example btn-sm my-0 p">Edit</button>
+        </a>
+    @endcan
+    @can('delete',$ticket)
+        <form method="POST" action="{{route('tickets.destroy',$ticket->id)}}">
+            @csrf
+            @method('DELETE')
+            <button type="submit" class=" text-white btn young-passion-gradient example btn-sm my-0 p">Delete</button>
+        </form>
+    @endcan
     <a class="text-white d-flex" href="/">
         <button class="btn peach-gradient btn-sm my-0 p">Home</button>
     </a>
@@ -47,16 +52,24 @@
                     <td class="text-center">{{$ticket->created_at}}</td>
                     <td class="text-center">{{$ticket->updated_at}}</td>
                     <td class="text-center">
-                        <a class="text-white" href="{{route('tickets.edit',$ticket->id)}}">
-                            <button type="button" class="btn btn-green btn-sm m-0">Edit</button>
-                        </a>
+                        @can('update',$ticket)
+                            <a class="text-white" href="{{route('tickets.edit',$ticket->id)}}">
+                                <button type="button" class="btn btn-green btn-sm m-0">Edit</button>
+                            </a>
+                        @else
+                            <a class="text-center">Forbidden</a>
+                        @endcan
                     </td>
                     <td class="text-center">
-                        <form method="POST" action="{{route('tickets.destroy',$ticket->id)}}">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="btn btn-red btn-sm m-0">Delete</button>
-                        </form>
+                        @can('delete',$ticket)
+                            <form method="POST" action="{{route('tickets.destroy',$ticket->id)}}">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-red btn-sm m-0">Delete</button>
+                            </form>
+                        @else
+                            <a class="text-center">Forbidden</a>
+                        @endcan
                     </td>
                 </tr>
                 </tbody>
@@ -90,8 +103,9 @@
                             </div>
                             <div class="card-body">
                                 <h5 class="card-title">{{$ticket->user->name}}</h5>
-                                <p class="card-text">{{$ticket->user->username}}</p>
-                                <p class="card-text">{{$ticket->state->state}} | {{$ticket->created_at}} | {{$ticket->updated_at}}</p>
+                                <p class="card-text">{{$ticket->user->username}} | {{$ticket->user->email}}</p>
+                                <p class="card-text">{{$ticket->state->state}} | {{$ticket->created_at}}
+                                    | {{$ticket->updated_at}}</p>
                             </div>
                         </div>
                     </div>
@@ -104,28 +118,28 @@
             <h1>Comments</h1>
         </div>
         <div class="col-sm-8">
-                    <form method="POST" action="{{ route('comments.store') }}">
-                        @csrf
-    
-                        <div class="md-form 2">
+            <form method="POST" action="{{ route('comments.store') }}">
+                @csrf
+
+                <div class="md-form 2">
                             <textarea id="comment"
-                            name="comment"
-                            class="md-textarea md-textarea-auto form-control
+                                      name="comment"
+                                      class="md-textarea md-textarea-auto form-control
                             @error('comment') is-danger @enderror"
-                            style="resize: none"
-                            rows="2"
-                            style="width: 100%"></textarea>
-                            <label for="comment">Leave a comment</label>
-    
-                            @error('comment')
-                                <p class="help is-danger">{{ $errors->first('comment') }}</p>
-                            @enderror
-                        </div>
-                        <input type="hidden" name="ticket_id" value="{{ $ticket->id }}"/>
-                        <input type="hidden" name="user_id" value="{{ $ticket->user_id }}"/>
-                        <button class="btn blue-gradient text-white " type="submit">Post</button>
-    
-                    </form>
+                                      style="resize: none"
+                                      rows="2"
+                                      style="width: 100%"></textarea>
+                    <label for="comment">Leave a comment</label>
+
+                    @error('comment')
+                    <p class="help is-danger">{{ $errors->first('comment') }}</p>
+                    @enderror
+                </div>
+                <input type="hidden" name="ticket_id" value="{{ $ticket->id }}"/>
+                <input type="hidden" name="user_id" value="{{ $ticket->user_id }}"/>
+                <button class="btn blue-gradient text-white " type="submit">Post</button>
+
+            </form>
         </div>
         @foreach ($ticket->comments as $comment)
             <div class="p-2">
@@ -139,18 +153,26 @@
                     <div class="card-body">
                         <p class="card-text">{{ $comment->comment }}</p>
                         <div>
+                            @can('update',$comment)
                             <form method="POST" action="{{route('comments.destroy', $comment->id)}}">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" style="float: right; margin-left: 5px" class="btn btn-red btn-sm">Delete</button>
+                                <button type="submit" style="float: right; margin-left: 5px" class="btn btn-red btn-sm">
+                                    Delete
+                                </button>
                             </form>
+                            @endcan
+                            @can('delete',$comment)
                             <form method="GET" action="{{route('comments.edit', $comment->id)}}">
-                                    <button type="submit" style="float: right; margin-left: 5px" class="btn btn-green btn-sm">Edit</button>
-                                </form>
+                                <button type="submit" style="float: right; margin-left: 5px"
+                                        class="btn btn-green btn-sm">Edit
+                                </button>
+                            </form>
+                                @endcan
                         </div>
                     </div>
                 </div>
-        </div>
+            </div>
         @endforeach
         <div class="col-sm-12 p-4">
             @if(session()->get('success'))

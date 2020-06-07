@@ -1,4 +1,4 @@
-@extends('layout')
+@extends('layouts.layout')
 
 @section('linked')
     <span><a href="{{route('comments.create')}}">Create Comment</a></span>
@@ -54,21 +54,6 @@
                         @endif
                     </div>
 
-                    <div class="md-form">
-                        <select id="user_id"
-                                class="browser-default custom-select m-2"
-                                name="user_id">
-                            <option value="">User</option>
-                            @foreach($users as $user)
-                                <option value="{{$user->id}}">{{$user->username}}</option>
-                            @endforeach
-                        </select>
-                        @if ($errors->has('user'))
-                            <span class="help-block">
-                                        <strong>{{ $errors->first('user') }}</strong>
-                                    </span>
-                        @endif
-                    </div>
                     <div class="text-center pt-2">
                     <button class="btn blue-gradient text-white " type="submit">Post</button>
                     </div>

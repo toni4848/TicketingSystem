@@ -11,22 +11,43 @@ use Illuminate\Http\Request;
 class TicketsController extends Controller
 {
     /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
+    /**
      * Display a listing of the resource.
      *
      * return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index()
     {
-        $search=$request->get('search');
-        if ($search){
-            $tickets= Ticket::where('title','like', '%'.$search.'%')
-                ->orWhere('body', 'like', '%'.$search.'%')->paginate(10);
-        }else{
+            $tickets = Ticket::userRole()->latest('created_at')->paginate(10);
 
-            $tickets = Ticket::latest('created_at')->paginate(10);
-        }
         return view ('tickets.index', compact('tickets'));
 
+    }
+
+    public function searchTickets(Request $request){
+
+        $search=$request->get('search');
+
+        if ($search){
+            $tickets= Ticket::userRole()->where('title','like', '%'.$search.'%')
+                ->orWhere('body', 'like', '%'.$search.'%')
+                ->latest('created_at')
+                ->paginate(10);
+        }else{
+
+            $tickets = Ticket::userRole()->latest('created_at')
+                ->paginate(10);
+        }
+        return view ('tickets.index', compact('tickets'));
     }
     /**
      * Show the form for creating a new resource.
@@ -36,14 +57,14 @@ class TicketsController extends Controller
     public function create($client=null)
     {
         $states =State::all();
-        $users =User::all();
+
         if ($client){
             $client = Client::findOrFail($client);
-            return view('tickets.create',compact('states','users','client'));
+            return view('tickets.create',compact('states','client'));
         }else{
             $clients =Client::all();
             $client=null;
-            return view('tickets.create',compact('states','users','clients','client'));
+            return view('tickets.create',compact('states','clients','client'));
         }
 
     }
@@ -57,17 +78,17 @@ class TicketsController extends Controller
     public function store(Request $request)
     {
        $this->validateTicket();
+       $user= auth()->user()->id;
 
         $ticket = new Ticket([
             'title' => $request->input('title'),
             'body' => $request->input('body'),
             'state_id' => $request->input('state'),
-            'client_id' => $request->input('client'),
-            'user_id' => $request->input('user')
+            'client_id' =>$request->input('client'),
+            'user_id' => $user
         ]);
 
         $ticket->save();
-        //Ticket::create($this->validateTicket());
         return redirect(route('tickets.index'))->with('success', 'Ticket created!');
     }
 
@@ -91,10 +112,10 @@ class TicketsController extends Controller
      */
     public function edit(Ticket $ticket)
     {
+        $this->authorize('update', $ticket);
         $states =State::all();
-        $users =User::all();
         $clients =Client::all();
-        return view('tickets.edit',compact('ticket','states','users','clients'));
+        return view('tickets.edit',compact('ticket','states','clients'));
     }
 
     /**
@@ -104,16 +125,19 @@ class TicketsController extends Controller
      * param  \App\Ticket  $ticket
      * return \Illuminate\Http\Response
      */
-    public function update($id)
+    public function update(Ticket $ticket)
     {
-        $ticket = Ticket::findOrFail($id);
+        //$this->authorize('update-ticket', $ticket);
+        $this->authorize('update', $ticket);
+        $ticket = Ticket::findOrFail($ticket->id);
 
         $this->validateTicket();
+        $user= auth()->user()->id;
 
-        $ticket->body = request('title');
+        $ticket->title = request('title');
         $ticket->body = request('body');
         $ticket->state_id = request('state');
-        $ticket->user_id = request('user');
+        $ticket->user_id = $user;
         $ticket->client_id = request('client');
         $ticket->save();
         //$ticket->update($this->validateTicket());
@@ -128,15 +152,10 @@ class TicketsController extends Controller
      */
     public function destroy(Ticket $ticket)
     {
+        //$this->authorize('update-ticket', $ticket);
+        $this->authorize('delete', $ticket);
         $ticket->delete();
         return redirect(route('tickets.index'))->with('success', 'Ticket deleted!');
-    }
-
-    public function  userTickets(){
-
-        $tickets = Ticket::where('user_id');
-        return view ('tickets.index', compact('tickets'));
-
     }
 
     public function  validateTicket(){
@@ -144,7 +163,6 @@ class TicketsController extends Controller
             'title'=>'required|max: 45',
             'body'=>'required|max: 255',
             'state'=>'required',
-            'user'=>'required',
             'client'=>'required'
         ]);
     }

@@ -1,13 +1,15 @@
-@extends('layout')
+@extends('layouts.layout')
 
 @section('linked')
     <span><a href="{{route('states.index')}}"> States</a></span>
 @endsection
 
 @section('button')
+    @can('admin')
     <a class="text-white d-flex" href="{{route('states.create')}}">
         <button class="btn blue-gradient btn-sm my-0 p">Create</button>
     </a>
+    @endcan
     <a class="text-white d-flex" href="/">
         <button class="btn peach-gradient btn-sm my-0 p">Home</button>
     </a>
