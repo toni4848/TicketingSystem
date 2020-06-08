@@ -13,7 +13,7 @@ class User extends Authenticatable
 
     use SoftDeletes;
     
-    public $timestamps = false;
+    //public $timestamps = false;
 
     public function tickets(){
         return $this->hasMany(Ticket::class);
@@ -43,7 +43,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'username', 'password',
+        'name', 'username', 'password', 'email',
     ];
 
     /**

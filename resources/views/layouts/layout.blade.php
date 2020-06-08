@@ -99,7 +99,7 @@
     <!-- Navbar -->
     <nav class="navbar fixed-top navbar-expand-lg navbar-light winter-neva-gradient scrolling-navbar">
         <div class="container-fluid">
-
+        @guest
             <!-- Brand -->
             <a class="navbar-brand waves-effect" href="/">
                 <strong class="text-white">Ticketing System</strong>
@@ -115,71 +115,61 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
 
                 <!-- Left -->
-                <ul class="navbar-nav mr-auto">
+
+                    <ul class="navbar-nav mr-auto">
                     <li class="nav-item {{Request::path() === '/' ? 'active' : ''}}">
                         <a class="nav-link waves-effect" href="/">Home
                             <span class="sr-only">(current)</span>
                         </a>
                     </li>
-                    <li class="nav-item dropdown {{Route::is('tickets.index','tickets.create') ? 'active' : ''}}">
-                        <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown"
-                           aria-haspopup="true" aria-expanded="false">Tickets</a>
-                        <div class="dropdown-menu dropdown-primary" aria-labelledby="navbarDropdownMenuLink">
-                            <a class="dropdown-item {{Route::is('tickets.index') ? 'active' : ''}}" href="{{route('tickets.index')}}">View Tickets</a>
-                            <a class="dropdown-item {{Route::is('tickets.create') ? 'active' : ''}}" href="{{route('tickets.create')}}">Add Ticket</a>
-                        </div>
-                    </li>
-                    <!-- Dropdown -->
-                    <li class="nav-item dropdown {{Route::is('comments.index','comments.create') ? 'active' : ''}}">
-                        <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown"
-                           aria-haspopup="true" aria-expanded="false">Comments</a>
-                        <div class="dropdown-menu dropdown-primary" aria-labelledby="navbarDropdownMenuLink">
-                            <a class="dropdown-item {{Route::is('comments.index') ? 'active' : ''}}" href="{{route('comments.index')}}">View Comments</a>
-                            <a class="dropdown-item {{Route::is('comments.create') ? 'active' : ''}}" href="{{route('comments.create')}}">Add Comment</a>
-
-                        </div>
-                    </li>
-                    <!-- Dropdown -->
-                    <li class="nav-item dropdown {{Route::is('clients.index','clients.create') ? 'active' : ''}}">
-                        <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown"
-                           aria-haspopup="true" aria-expanded="false">Clients</a>
-                        <div class="dropdown-menu dropdown-primary" aria-labelledby="navbarDropdownMenuLink">
-                            <a class="dropdown-item {{Route::is('clients.index') ? 'active' : ''}}" href="{{route('clients.index')}}">View Clients</a>
-                            <a class="dropdown-item {{Route::is('clients.create') ? 'active' : ''}}" href="{{route('clients.create')}}">Add Client</a>
-                        </div>
-                    </li>
-                    <!-- Dropdown -->
-                    <li class="nav-item dropdown {{Route::is('states.index','states.create','states.show','states.edit') ? 'active' : ''}}">
-                        <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown"
-                           aria-haspopup="true" aria-expanded="false">States</a>
-                        <div class="dropdown-menu dropdown-primary" aria-labelledby="navbarDropdownMenuLink">
-                            <a class="dropdown-item {{Route::is('states.index') ? 'active' : ''}}" href="{{route('states.index')}}">View States</a>
-                            <a class="dropdown-item {{Route::is('states.create') ? 'active' : ''}}" href="{{route('states.create')}}">Create State</a>
-
-                        </div>
-                    </li>
-                    <!-- Dropdown -->
-                    <li class="nav-item dropdown {{Route::is('users.index','users.create') ? 'active' : ''}}">
-                        <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown"
-                           aria-haspopup="true" aria-expanded="false">Users</a>
-                        <div class="dropdown-menu dropdown-primary" aria-labelledby="navbarDropdownMenuLink">
-                            <a class="dropdown-item {{Route::is('users.index') ? 'active' : ''}}" href="{{route('users.index')}}">View Users</a>
-                            <a class="dropdown-item {{Route::is('users.create') ? 'active' : ''}}" href="{{route('users.create')}}">Create User</a>
-                        </div>
-                    </li>
-                </ul>
+                    </ul>
+                @else
+                    <!-- Brand -->
+                        <a class="navbar-brand waves-effect" href="{{route('home')}}">
+                            <strong class="text-white">Ticketing System</strong>
+                            @yield('nav')
+                        </a>
+                @endguest
 
                 <!-- Right -->
-                <ul class="navbar-nav nav-flex-icons">
-                    <li class="nav-item">
-                        <a href="" class="nav-link border border-dark rounded waves-effect">
-                            <i class="fas fa-sign-in-alt mr-2"></i>Log in
-                        </a>
-                    </li>
+                <ul class="navbar-nav ml-auto right">
+                    <!-- Authentication Links -->
+                    @guest
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+                        </li>
+                        @if (Route::has('register'))
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+                            </li>
+                        @endif
+                    @else
+                        <li class="nav-item">
+                                <a class="nav-link" href="{{ route('users.show',auth()->user()) }}">
+                                    My profile
+                                </a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                {{ Auth::user()->name }} <span class="caret"></span>
+                            </a>
+
+                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="{{ route('logout') }}"
+                                   onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                                    {{ __('Logout') }}
+                                </a>
+
+                                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                    @csrf
+                                </form>
+                            </div>
+
+                        </li>
+                    @endguest
                 </ul>
-
             </div>
-
         </div>
     </nav>
     <!-- Navbar -->
@@ -187,24 +177,72 @@
     <!-- Sidebar -->
     <div class="sidebar-fixed position-fixed">
 
+        @guest
         <a class="logo-wrapper waves-effect" href="/">
             <img src="{{asset('img/unnamed.png')}}" class="img-fluid" alt="">
         </a>
 
+        @else
+            <a class="logo-wrapper waves-effect" href="{{route('home')}}">
+                <img src="{{asset('img/unnamed.png')}}" class="img-fluid" alt="">
+            </a>
+
         <div class="list-group list-group-flush">
-            <a href="/" class="list-group-item list-group-item-action waves-effect {{Request::path() === '/' ? 'active' : ''}}">
+            <a href="{{route('home')}}" class="list-group-item list-group-item-action waves-effect {{Route::is('home') ? 'active' : ''}}">
                 <i class="fas fa-chart-pie mr-3"></i>Home
             </a>
-            <a href="{{route('clients.index')}}" class="list-group-item list-group-item-action waves-effect {{Route::is('clients.index') ? 'active' : ''}}">
-                <i class="fas fa-ticket-alt mr-3"></i>Add Ticket</a>
-            <a href="{{route('tickets.index')}}" class="list-group-item list-group-item-action waves-effect {{Route::is('tickets.index') ? 'active' : ''}}">
+
+            <a href="#client" class="list-group-item list-group-item-action waves-effect dropdown-toggle {{Route::is('clients.index','clients.create','clients.show','clients.edit') ? 'active' : ''}}" data-toggle="collapse" aria-expanded="false">
+                <i class="fas fa-ticket-alt mr-3"></i>Clients</a>
+
+            <ul class="collapse list-unstyled" id="client">
+                <li> <a href="{{route('clients.index')}}" class="list-group-item list-group-item-action waves-effect {{Route::is('clients.index') ? 'active' : ''}}">Clients</a></li>
+                <li> <a href="{{route('clients.create')}}" class="list-group-item list-group-item-action waves-effect {{Route::is('clients.create') ? 'active' : ''}}">Add Client</a></li>
+            </ul>
+
+
+            <a href="#ticket" class="list-group-item list-group-item-action waves-effect dropdown-toggle {{Route::is('tickets.index','tickets.create','tickets.show','tickets.edit') ? 'active' : ''}}" data-toggle="collapse" aria-expanded="false">
                 <i class="fas fa-clipboard-list mr-3"></i>Tickets</a>
-            <a href="#" class="list-group-item list-group-item-action waves-effect">
-                <i class="fas fa-comment-dots mr-3"></i>Add Comment for Ticket</a>
-            <a href="#" class="list-group-item list-group-item-action waves-effect">
-                <i class="fas fa-comments mr-3"></i>Comments of Tickets</a>
+
+
+            <ul class="collapse list-unstyled" id="ticket">
+                <li> <a href="{{route('tickets.index')}}" class="list-group-item list-group-item-action waves-effect {{Route::is('tickets.index') ? 'active' : ''}}">Tickets</a></li>
+                <li><a href="{{route('tickets.create')}}" class="list-group-item list-group-item-action waves-effect {{Route::is('tickets.create') ? 'active' : ''}}">Add Ticket</a></li>
+            </ul>
+
+
+            <a href="#comment" class="list-group-item list-group-item-action waves-effect dropdown-toggle {{Route::is('comment.index','comment.create','comment.show','comment.edit') ? 'active' : ''}}" data-toggle="collapse" aria-expanded="false">
+                <i class="fas fa-comment-dots mr-3"></i>Comments</a>
+
+
+            <ul class="collapse list-unstyled" id="comment">
+                <li><a href="{{route('comments.index')}}" class="list-group-item list-group-item-action waves-effect {{Route::is('comments.index') ? 'active' : ''}}">Comments</a></li>
+                <li><a href="{{route('comments.create')}}" class="list-group-item list-group-item-action waves-effect {{Route::is('comments.create') ? 'active' : ''}}">Add Comment</a></li>
+            </ul>
+
+
+            <a href="{{route('states.index')}}" class="list-group-item list-group-item-action waves-effect {{Route::is('states.index') ? 'active' : ''}}">
+                <i class="fas fa-comment-dots mr-3 "></i>States</a>
+            @if(auth()->user()->role =='admin')
+            <a href="#pageSubmenu" class="list-group-item list-group-item-action waves-effect dropdown-toggle {{Route::is('states.create','users.index','users.create') ? 'active' : ''}}" data-toggle="collapse" aria-expanded="false">
+                <i class="fas fa-comments mr-3"></i>Admin</a>
+
+            <ul class="collapse list-unstyled" id="pageSubmenu">
+                <li>
+                    <a class="list-group-item list-group-item-action waves-effect {{Route::is('states.create') ? 'active' : ''}}" href="{{route('states.create')}}">Create State</a>
+                </li>
+                <li>
+                    <a class="list-group-item list-group-item-action waves-effect {{Route::is('users.index') ? 'active' : ''}}" href="{{route('users.index')}}">View Users</a>
+                </li>
+                <li>
+                    <a class="list-group-item list-group-item-action waves-effect {{Route::is('users.create') ? 'active' : ''}}" href="{{route('users.create')}}">Create User</a>
+                </li>
+            </ul>
+
+            @endif
         </div>
 
+        @endguest
     </div>
     <!-- Sidebar -->
 
@@ -213,6 +251,7 @@
 
 <!--Main layout-->
 <main class="pt-5 mx-lg-5 t">
+
     <div class="container-fluid mt-5">
 
         <!-- Heading -->
@@ -222,8 +261,8 @@
             <div class="card-body d-sm-flex justify-content-between">
 
                 <h4 class="mb-2 mb-sm-0 pt-1">
-                    <a href="/">Home Page</a>
-                    <span>/</span>
+                    <a href="/">Home page</a>
+                    <span> / </span>
                     @yield('linked')
                 </h4>
                 <div class="row">
@@ -235,6 +274,8 @@
 
         </div>
         <!-- Heading -->
+
+    @yield('auth')
 
         <!--Grid row-->
         <div class="row wow fadeIn">
@@ -271,7 +312,7 @@
            role="button">Add Ticket
             <i class="fas fa-download ml-2"></i>
         </a>
-        <a class="btn btn-outline-white text-white" href="/"
+        <a class="btn btn-outline-white text-white" href="{{route('home')}}"
            role="button">Home
             <i class=""></i>
         </a>
@@ -311,6 +352,8 @@
 <script type="text/javascript" src="{{asset('js/bootstrap.min.js')}}"></script>
 <!-- MDB core JavaScript -->
 <script type="text/javascript" src="{{asset('js/mdb.min.js')}}"></script>
+
+<script type="text/javascript" src="{{asset('js/js.js')}}"></script>
 <!-- Initializations -->
 <script type="text/javascript">
     // Animations initialization

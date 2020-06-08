@@ -92,3 +92,5 @@ Dodatno (nije potrebno, ali ako budete turbo brzi):
 - kreiran CRUD i osnovni view za tablicu users
 
 - kreiran CRUD i osnovni view za tablicu tickets
+
+- autentifikacija i autorizacija i soft delete

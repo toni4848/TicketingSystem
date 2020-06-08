@@ -1,13 +1,15 @@
-@extends('layout')
+@extends('layouts.layout')
 
 @section('linked')
     <span><a href="{{route('states.index')}}">States</a></span><span> / </span><span>State {{$state->id}} - {{$state->state}}</span>
 @endsection
 
 @section('button')
+    @can('admin')
     <a class="text-white d-flex" href="{{route('states.create')}}">
         <button class="btn blue-gradient btn-sm my-0 p">Create</button>
     </a>
+    @endcan
     <a class="text-white d-flex" href="/">
         <button class="btn peach-gradient btn-sm my-0 p">Home</button>
     </a>
@@ -32,16 +34,24 @@
                 <tr>
                     <td class="text-center">{{$state->state}}</td>
                     <td class="text-center">
+                        @can('admin')
                         <a class="text-white" href="{{route('states.edit',$state)}}">
                             <button type="button" class="btn btn-green btn-sm m-0">Edit</button>
                         </a>
+                        @else
+                            <a class="text-center">Forbidden</a>
+                        @endcan
                     </td>
                     <td class="text-center">
+                        @can('admin',$state)
                         <form method="POST" action="{{route('states.destroy',$state)}}">
                             @csrf
                             @method('DELETE')
                             <button type="submit" class="btn btn-red btn-sm m-0">Delete</button>
                         </form>
+                        @else
+                            <a class="text-center">Forbidden</a>
+                        @endcan
                     </td>
                 </tr>
             </tbody>

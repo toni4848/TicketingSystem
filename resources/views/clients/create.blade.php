@@ -1,4 +1,4 @@
-@extends('layout')
+@extends('layouts.layout')
 
 @section('linked')
     <span><a href="{{route('clients.create')}}">Create Client</a></span>
@@ -47,7 +47,8 @@
                                name="email"
                                class="form-control @error('email') is-danger @enderror"
                                required
-                               value="{{old('email')}}">
+                               value="{{old('email')}}"
+                               autocomplete="email" autofocus>
                         <label for="email">Email</label>
 
                         @error('email')

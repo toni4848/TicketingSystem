@@ -18,26 +18,23 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-
-Route::get('/about', function () {
-    return view('about');
-});
+Route::get('/home', 'HomeController@index')->name('home')->middleware('auth');
 
 //States Routes
 
 Route::get('/states', 'StatesController@index')->name('states.index');
 
-Route::post('/states', 'StatesController@store')->name('states.store');
+Route::post('/states', 'StatesController@store')->name('states.store')->middleware('can:admin');
 
-Route::get('/states/create','StatesController@create')->name('states.create');
+Route::get('/states/create','StatesController@create')->name('states.create')->middleware('can:admin');
 
 Route::get('/states/{state}','StatesController@show')->name('states.show');
 
-Route::get('/states/{state}/edit','StatesController@edit')->name('states.edit');
+Route::get('/states/{state}/edit','StatesController@edit')->name('states.edit')->middleware('can:admin,state');
 
-Route::put('/states/{state}', 'StatesController@update')->name('states.update');
+Route::put('/states/{state}', 'StatesController@update')->name('states.update')->middleware('can:admin,state');
 
-Route::delete('/states/{state}', 'StatesController@destroy')->name('states.destroy');
+Route::delete('/states/{state}', 'StatesController@destroy')->name('states.destroy')->middleware('can:admin,state');
 
 //Route::resource('states', 'StatesController');
 
@@ -46,6 +43,8 @@ Route::delete('/states/{state}', 'StatesController@destroy')->name('states.destr
 Route::get('/clients', 'ClientsController@index')->name('clients.index');
 
 Route::post('/clients', 'ClientsController@store')->name('clients.store');
+
+Route::get('/clients/search', 'ClientsController@searchClients')->name('clients.searchClients');
 
 Route::get('/clients/create','ClientsController@create')->name('clients.create');
 
@@ -81,16 +80,20 @@ Route::delete('/comments/{comment}', 'CommentController@destroy')->name('comment
 
 Route::get('/tickets','TicketsController@index')->name('tickets.index');
 
+Route::get('/tickets/search','TicketsController@searchTickets')->name('tickets.searchTickets');
+
 Route::post('/tickets','TicketsController@store')->name('tickets.store');
 
-Route::get('/tickets/create/{ticket?}', 'TicketsController@create')->name('tickets.create');
+Route::get('/tickets/create/{client?}', 'TicketsController@create')->name('tickets.create');
 
 Route::get('/tickets/{ticket}','TicketsController@show')->name('tickets.show');
-
-Route::get('/userTickets', 'TicketsController@userTickets')->name('tickets.userTickets');
 
 Route::get('/tickets/{ticket}/edit','TicketsController@edit')->name('tickets.edit');
 
 Route::put('/tickets/{ticket}','TicketsController@update')->name('tickets.update');
 
 Route::delete('/tickets/{ticket}','TicketsController@destroy')->name('tickets.destroy');
+
+Auth::routes();
+
+
