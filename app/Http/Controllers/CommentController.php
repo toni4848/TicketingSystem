@@ -26,7 +26,7 @@ class CommentController extends Controller
      */
     public function index()
     {
-        $comments = Comment::all();
+        $comments = Comment::paginate(10);
 
         return view('comments.index', compact('comments'));
     }

@@ -6,10 +6,13 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class User extends Authenticatable
 {
 
+    use SoftDeletes;
+    
     //public $timestamps = false;
 
     public function tickets(){
@@ -20,6 +23,17 @@ class User extends Authenticatable
         return $this->hasMany(Comment::class);
     }
 
+    public static function boot()
+    {
+        parent::boot();
+        static::deleted(function($user)
+        {
+            foreach ($user->tickets()->get() as $ticket) {
+                $ticket->delete();
+              }
+            $user->comments()->delete();
+        });
+    }
 
     use Notifiable;
 

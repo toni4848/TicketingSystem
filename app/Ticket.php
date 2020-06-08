@@ -3,11 +3,15 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Ticket extends Model
 {
+  
+    use SoftDeletes;
 
     protected $fillable = ['title','body','user_id','state_id','client_id'];
+
 
     public function comments(){
         return $this->hasMany(Comment::class);
@@ -22,6 +26,16 @@ class Ticket extends Model
         return $this->belongsTo(User::class);
     }
 
+
+    public static function boot()
+    {
+        parent::boot();
+        static::deleted(function($ticket)
+        {
+            $ticket->comments()->delete();
+        });
+    }
+  
     public function scopeUserRole($query)
     {
         $usersRole=auth()->user()->role;
@@ -29,5 +43,6 @@ class Ticket extends Model
         if ($usersRole != 'admin'){
             return $query->where('user_id', $user);
         }
+
     }
 }

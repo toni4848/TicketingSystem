@@ -46,5 +46,6 @@
         @endforeach
         </tbody>
     </table>
+    {{$comments->render()}}
 </div>
 @endsection
