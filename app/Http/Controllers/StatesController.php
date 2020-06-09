@@ -97,7 +97,7 @@ class StatesController extends Controller
     {
         //$state = State::findOrFail($id);
 
-        $state->update($this->validateState());
+        State::where('id', $state['id'])->update($this->validateState());
 
         //$state->state = request('state');
         //$state->save();

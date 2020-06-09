@@ -27,7 +27,7 @@ class TicketsController extends Controller
      */
     public function index()
     {
-            $tickets = Ticket::userRole()->latest('created_at')->paginate(10);
+        $tickets = Ticket::userRole()->latest('created_at')->paginate(10);
 
         return view ('tickets.index', compact('tickets'));
 
@@ -80,7 +80,7 @@ class TicketsController extends Controller
        $this->validateTicket();
        $user= auth()->user()->id;
 
-        $ticket = new Ticket([
+        Ticket::create([
             'title' => $request->input('title'),
             'body' => $request->input('body'),
             'state_id' => $request->input('state'),
@@ -88,7 +88,6 @@ class TicketsController extends Controller
             'user_id' => $user
         ]);
 
-        $ticket->save();
         return redirect(route('tickets.index'))->with('success', 'Ticket created!');
     }
 
@@ -129,17 +128,18 @@ class TicketsController extends Controller
     {
         //$this->authorize('update-ticket', $ticket);
         $this->authorize('update', $ticket);
-        $ticket = Ticket::findOrFail($ticket->id);
-
+ 
         $this->validateTicket();
         $user= auth()->user()->id;
 
-        $ticket->title = request('title');
-        $ticket->body = request('body');
-        $ticket->state_id = request('state');
-        $ticket->user_id = $user;
-        $ticket->client_id = request('client');
-        $ticket->save();
+        Ticket::where('id', $ticket['id'])->update([
+            'title' => request('title'),
+            'body' => request('body'),
+            'state_id' => request('state'),
+            'user_id' => $user,
+            'client_id' => request('client')
+        ]);
+ 
         //$ticket->update($this->validateTicket());
         return redirect(route('tickets.show',$ticket))->with('success', 'Ticket updated!');
     }

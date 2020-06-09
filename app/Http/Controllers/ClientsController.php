@@ -107,8 +107,7 @@ class ClientsController extends Controller
     public function update(Client $client)
     {
 
-
-        $client->update($this->validateAttributes());
+        Client::where('id', $client['id'])->update($this->validateAttributes());
 
         return redirect(route('clients.show',$client))->with('success', 'Client updated!');
     }

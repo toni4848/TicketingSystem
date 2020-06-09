@@ -98,7 +98,7 @@ class CommentController extends Controller
     public function update(Request $request, Comment $comment)
     {
         $this->authorize('update',$comment);
-        $comment->update($this->validateComment());
+        Comment::where('id', $comment['id'])->update($this->validateComment());
 
         return redirect(route('tickets.show', $comment->ticket_id))->with('success', 'Comment updated!');
     }

@@ -111,7 +111,7 @@ class UserController extends Controller
             'password' => ['required', 'max:45']
         ]);
 
-        $user->update([
+        User::where('id', $user['id'])->update([
             'username' => request('username'),
             'name' => request('name'),
             'password' => Hash::make(request('password'))
