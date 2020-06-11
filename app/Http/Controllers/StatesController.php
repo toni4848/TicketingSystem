@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\State;
 use Illuminate\Http\Request;
+use App\Http\Requests\StoreStateRequest;
 
 class StatesController extends Controller
 {
@@ -48,14 +49,16 @@ class StatesController extends Controller
      *  @param  \Illuminate\Http\Request  $request
      *  return \Illuminate\Http\Response
      */
-    public function store()
+    public function store(StoreStateRequest $request)
     {
 
         //$state = new State();
         //$state->state = request('state');
         //$state->save();
 
-        State::create($this->validateState());
+        State::create([
+            'state' => $request['state']
+        ]);
 
         return redirect(route('states.index'))->with('success', 'State created!');
 
@@ -93,11 +96,13 @@ class StatesController extends Controller
      * @param  \App\State  $state
      * return \Illuminate\Http\Response
      */
-    public function update(State $state)
+    public function update(State $state, StoreStateRequest $request)
     {
         //$state = State::findOrFail($id);
 
-        State::where('id', $state['id'])->update($this->validateState());
+        State::where('id', $state['id'])->update([
+            'state' => $request['state']
+        ]);
 
         //$state->state = request('state');
         //$state->save();
@@ -119,15 +124,5 @@ class StatesController extends Controller
 
         return redirect(route('states.index'))->with('success', 'State deleted!');
 
-    }
-
-    /**
-     * @return array
-     */
-    public function validateState(): array
-    {
-        return request()->validate([
-            'state' => ['required', 'max:45']
-        ]);
     }
 }

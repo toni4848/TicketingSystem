@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Client;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Http\Requests\StoreClientRequest;
 
 class ClientsController extends Controller
 {
@@ -65,9 +66,13 @@ class ClientsController extends Controller
      * param  \Illuminate\Http\Request  $request
      * return \Illuminate\Http\Response
      */
-    public function store()
+    public function store(StoreClientRequest $request)
     {
-        Client::create($this->validateAttributes());
+        Client::create([
+            'name' => $request['name'],
+            'email' => $request['email'],
+            'adress' => $request['adress']
+        ]);
 
         return redirect(route('clients.index'))->with('success', 'Client created!');
     }
@@ -93,7 +98,6 @@ class ClientsController extends Controller
     public function edit(Client $client)
     {
 
-
         return view('clients.edit',compact('client'));
     }
 
@@ -104,10 +108,14 @@ class ClientsController extends Controller
      * @param  \App\Client  $client
      * return \Illuminate\Http\Response
      */
-    public function update(Client $client)
+    public function update(Client $client, StoreClientRequest $request)
     {
 
-        Client::where('id', $client['id'])->update($this->validateAttributes());
+        Client::where('id', $client['id'])->update([
+            'name' => $request['name'],
+            'email' => $request['email'],
+            'adress' => $request['adress']
+        ]);
 
         return redirect(route('clients.show',$client))->with('success', 'Client updated!');
     }
@@ -127,15 +135,4 @@ class ClientsController extends Controller
         return redirect(route('clients.index'))->with('success', 'Client deleted!');
     }
 
-    /**
-     * @return array
-     */
-    public function validateAttributes(): array
-    {
-        return request()->validate([
-            'name' => ['required', 'max:45'],
-            'email' => ['required', 'max:80'],
-            'adress' => ['required', 'max:80']
-        ]);
-    }
 }
