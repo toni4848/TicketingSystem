@@ -7,10 +7,10 @@
 
 @section('button')
     <a class="text-white d-flex" href="{{route('comments.create')}}">
-        <button class="btn blue-gradient btn-sm my-0 p">Create</button>
+        <button class="btn btn-primary btn-sm my-0 p">Create Comment</button>
     </a>
-    <a class="text-white d-flex" href="/">
-        <button class="btn peach-gradient btn-sm my-0 p">Home</button>
+    <a class="text-white d-flex" href="{{route('home')}}">
+        <button class="btn btn-amber btn-sm my-0 p">Home</button>
     </a>
 @endsection
 
@@ -22,7 +22,7 @@
             </div>
         </div>
         <div>
-            <table class="table">
+            <table class="table table-hover">
                 <thead>
                 <tr>
                     <th scope="col" class="text-center">Comment</th>
@@ -42,7 +42,7 @@
                     <td class="text-center">
                         @can('update',$comment)
                             <a class="text-white" href="{{route('comments.edit',$comment->id)}}">
-                                <button type="button" class="btn btn-green btn-sm m-0">Edit</button>
+                                <button type="button" class="btn btn-light-green btn-sm m-0">Edit</button>
                             </a>
                         @else
                             <a class="text-center">Forbidden</a>
@@ -53,7 +53,7 @@
                             <form method="POST" action="{{route('comments.destroy',$comment->id)}}">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="btn btn-red btn-sm m-0">Delete</button>
+                                <button type="submit" class="btn red lighten-1 text-white btn-sm m-0">Delete</button>
                             </form>
                         @else
                             <a class="text-center">Forbidden</a>

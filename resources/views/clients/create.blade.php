@@ -5,8 +5,8 @@
 @endsection
 
 @section('button')
-    <a class="text-white d-flex" href="/">
-        <button class="btn peach-gradient btn-sm my-0 p">Home</button>
+    <a class="text-white d-flex" href="{{route('home')}}">
+        <button class="btn btn-amber btn-sm my-0 p">Home</button>
     </a>
 @endsection
 
@@ -30,29 +30,29 @@
                         <input type="text"
                                id="name"
                                name="name"
-                               class="form-control @error('name') is-danger @enderror"
+                               class="form-control @error('name') is-invalid @enderror"
                                required
                                value="{{old('name')}}">
                         <label for="name">Name</label>
 
                         @error('name')
-                        <p class="help is-danger">{{$errors->first('name')}}</p>
+                        <span class="invalid-feedback">{{$errors->first('name')}}</span>
                         @enderror
 
                     </div>
                     <div class="md-form 2">
                         <i class="fas fa-at prefix"></i>
-                        <input type="text"
+                        <input type="email"
                                id="email"
                                name="email"
-                               class="form-control @error('email') is-danger @enderror"
+                               class="form-control @error('email') is-invalid @enderror"
                                required
                                value="{{old('email')}}"
                                autocomplete="email" autofocus>
                         <label for="email">Email</label>
 
                         @error('email')
-                        <p class="help is-danger">{{$errors->first('email')}}</p>
+                        <span class="invalid-feedback">{{$errors->first('email')}}</span>
                         @enderror
 
                     </div>
@@ -61,18 +61,18 @@
                         <input type="text"
                                id="adress"
                                name="adress"
-                               class="form-control @error('adress') is-danger @enderror"
+                               class="form-control @error('adress') is-invalid @enderror"
                                required
                                value="{{old('adress')}}">
                         <label for="adress">Adress</label>
 
                         @error('adress')
-                        <p class="help is-danger">{{$errors->first('adress')}}</p>
+                        <span class="invalid-feedback">{{$errors->first('adress')}}</span>
                         @enderror
 
                     </div>
                     <div class="text-center pt-2">
-                    <button class="btn blue-gradient text-white text-center" type="submit">Store Client</button>
+                    <button class="btn btn-primary text-white text-center" type="submit">Create Client</button>
                     </div>
                 </form>
             </div>

@@ -8,15 +8,15 @@
     <form class="d-flex justify-content-center">
         <!-- Default input -->
         <input type="search" placeholder="Search users" aria-label="Search" class="form-control">
-        <button class="btn peach-gradient btn-sm my-0 p" type="submit">
+        <button class="btn btn-amber btn-sm my-0 p" type="submit">
             <i class="fas fa-search"></i>
         </button>
     </form>
     <a class="text-white d-flex" href="{{route('users.create')}}">
-        <button class="btn blue-gradient btn-sm my-0 p">Create</button>
+        <button class="btn btn-primary btn-sm my-0 p">Create User</button>
     </a>
-    <a class="text-white d-flex" href="/">
-        <button class="btn peach-gradient btn-sm my-0 p">Home</button>
+    <a class="text-white d-flex" href="{{route('home')}}">
+        <button class="btn btn-amber btn-sm my-0 p">Home</button>
     </a>
 @endsection
 
@@ -48,7 +48,7 @@
                 <td class="text-center">{{ $user->name }}</td>
                 <td class="text-center">
                     <a class="text-white" href="{{ route('users.show', $user->id) }}">
-                    <button type="button" class="btn btn-indigo btn-sm m-0">View</button>
+                    <button type="button" class="btn btn-light-blue btn-sm m-0">View</button>
                     </a>
                 </td>
             </tr>

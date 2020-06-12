@@ -9,8 +9,8 @@
 @endsection
 
 @section('button')
-    <a class="text-white d-flex" href="/">
-        <button class="btn peach-gradient btn-sm my-0 p">Home</button>
+    <a class="text-white d-flex" href="{{route('home')}}">
+        <button class="btn btn-amber btn-sm my-0 p">Home</button>
     </a>
 @endsection
 
@@ -36,16 +36,16 @@
                                id="state"
                                name="state"
                                value="{{$state->state}}"
-                               class="form-control @error('state') is-danger @enderror"
+                               class="form-control @error('state') is-invalid @enderror"
                                required>
                         <label for="state">State</label>
 
                         @error('state')
-                        <p class="help is-danger">{{$errors->first('state')}}</p>
+                        <span class="invalid-feedback">{{$errors->first('state')}}</span>
                         @enderror
                     </div>
                     <div class="text-center pt-2">
-                    <button class="btn blue-gradient text-white " type="submit">Update State {{$state->id}}</button>
+                    <button class="btn btn-primary text-white " type="submit">Edit State {{$state->id}}</button>
                     </div>
                 </form>
             </div>

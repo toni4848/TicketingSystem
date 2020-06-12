@@ -9,8 +9,8 @@
 @endsection
 
 @section('button')
-    <a class="text-white d-flex" href="/">
-        <button class="btn peach-gradient btn-sm my-0 p">Home</button>
+    <a class="text-white d-flex" href="{{route('home')}}">
+        <button class="btn btn-amber btn-sm my-0 p">Home</button>
     </a>
 @endsection
 
@@ -36,12 +36,12 @@
                                id="name"
                                name="name"
                                value="{{$client->name}}"
-                               class="form-control @error('name') is-danger @enderror"
+                               class="form-control @error('name') is-invalid @enderror"
                                required>
                         <label for="name">Name</label>
 
                         @error('name')
-                        <p class="help is-danger">{{$errors->first('name')}}</p>
+                        <span class="invalid-feedback">{{$errors->first('name')}}</span>
                         @enderror
                     </div>
                     <div class="md-form 2">
@@ -50,13 +50,13 @@
                                id="email"
                                name="email"
                                value="{{$client->email}}"
-                               class="form-control @error('email') is-danger @enderror"
+                               class="form-control @error('email') is-invalid @enderror"
                                required
                                autocomplete="email" autofocus>
                         <label for="email">Email</label>
 
                         @error('email')
-                        <p class="help is-danger">{{$errors->first('email')}}</p>
+                        <span class="invalid-feedback">{{$errors->first('email')}}</span>
                         @enderror
                     </div>
                     <div class="md-form 2">
@@ -65,16 +65,16 @@
                                id="adress"
                                name="adress"
                                value="{{$client->adress}}"
-                               class="form-control @error('adress') is-danger @enderror"
+                               class="form-control @error('adress') is-invalid @enderror"
                                required>
                         <label for="adress">Adress</label>
 
                         @error('adress')
-                        <p class="help is-danger">{{$errors->first('adress')}}</p>
+                        <span class="help is-invalid">{{$errors->first('adress')}}</span>
                         @enderror
                     </div>
                     <div class="text-center pt-2">
-                    <button class="btn blue-gradient text-white " type="submit">Update Client {{$client->id}}</button>
+                    <button class="btn btn-primary text-white " type="submit">Edit Client {{$client->id}}</button>
                     </div>
                 </form>
             </div>

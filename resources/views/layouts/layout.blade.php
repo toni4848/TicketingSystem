@@ -20,6 +20,8 @@
 
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
 
+    <link rel="stylesheet" href="https://raw.githubusercontent.com/ysoftaoglu/GradientButtons/master/gradient-buttons/gradient-buttons.min.css"/>
+
     <style>
 
         .map-container{
@@ -101,7 +103,7 @@
         <div class="container-fluid">
         @guest
             <!-- Brand -->
-            <a class="navbar-brand waves-effect" href="/">
+            <a class="navbar-brand waves-effect" href="{{route('home')}}">
                 <strong class="text-white">Ticketing System</strong>
             </a>
 
@@ -117,8 +119,8 @@
                 <!-- Left -->
 
                     <ul class="navbar-nav mr-auto">
-                    <li class="nav-item {{Request::path() === '/' ? 'active' : ''}}">
-                        <a class="nav-link waves-effect" href="/">Home
+                    <li class="nav-item {{Request::path() === '/home' ? 'active' : ''}}">
+                        <a class="nav-link waves-effect" href="{{route('home')}}">Home
                             <span class="sr-only">(current)</span>
                         </a>
                     </li>
@@ -178,11 +180,12 @@
     <div class="sidebar-fixed position-fixed">
 
         @guest
-        <a class="logo-wrapper waves-effect" href="/">
+        <a class="logo-wrapper waves-effect" href="{{route('home')}}">
             <img src="{{asset('img/unnamed.png')}}" class="img-fluid" alt="">
         </a>
 
         @else
+
             <a class="logo-wrapper waves-effect" href="{{route('home')}}">
                 <img src="{{asset('img/unnamed.png')}}" class="img-fluid" alt="">
             </a>
@@ -191,53 +194,67 @@
             <a href="{{route('home')}}" class="list-group-item list-group-item-action waves-effect {{Route::is('home') ? 'active' : ''}}">
                 <i class="fas fa-chart-pie mr-3"></i>Home
             </a>
+            @if(auth()->user()->role =='')
+            <a href="{{route('clients.index')}}" class="list-group-item list-group-item-action waves-effect {{Route::is('clients.index') ? 'active' : ''}}">
+                <i class="fas fa-ticket-alt mr-3 "></i>Clients</a>
 
-            <a href="#client" class="list-group-item list-group-item-action waves-effect dropdown-toggle {{Route::is('clients.index','clients.create','clients.show','clients.edit') ? 'active' : ''}}" data-toggle="collapse" aria-expanded="false">
-                <i class="fas fa-ticket-alt mr-3"></i>Clients</a>
+            <a href="{{route('tickets.index')}}" class="list-group-item list-group-item-action waves-effect {{Route::is('tickets.index') ? 'active' : ''}}">
+                <i class="fas fa-clipboard-list mr-3 "></i>Tickets</a>
 
-            <ul class="collapse list-unstyled" id="client">
-                <li> <a href="{{route('clients.index')}}" class="list-group-item list-group-item-action waves-effect {{Route::is('clients.index') ? 'active' : ''}}">Clients</a></li>
-                <li> <a href="{{route('clients.create')}}" class="list-group-item list-group-item-action waves-effect {{Route::is('clients.create') ? 'active' : ''}}">Add Client</a></li>
-            </ul>
-
-
-            <a href="#ticket" class="list-group-item list-group-item-action waves-effect dropdown-toggle {{Route::is('tickets.index','tickets.create','tickets.show','tickets.edit') ? 'active' : ''}}" data-toggle="collapse" aria-expanded="false">
-                <i class="fas fa-clipboard-list mr-3"></i>Tickets</a>
-
-
-            <ul class="collapse list-unstyled" id="ticket">
-                <li> <a href="{{route('tickets.index')}}" class="list-group-item list-group-item-action waves-effect {{Route::is('tickets.index') ? 'active' : ''}}">Tickets</a></li>
-                <li><a href="{{route('tickets.create')}}" class="list-group-item list-group-item-action waves-effect {{Route::is('tickets.create') ? 'active' : ''}}">Add Ticket</a></li>
-            </ul>
-
-
-            <a href="#comment" class="list-group-item list-group-item-action waves-effect dropdown-toggle {{Route::is('comment.index','comment.create','comment.show','comment.edit') ? 'active' : ''}}" data-toggle="collapse" aria-expanded="false">
-                <i class="fas fa-comment-dots mr-3"></i>Comments</a>
-
-
-            <ul class="collapse list-unstyled" id="comment">
-                <li><a href="{{route('comments.index')}}" class="list-group-item list-group-item-action waves-effect {{Route::is('comments.index') ? 'active' : ''}}">Comments</a></li>
-                <li><a href="{{route('comments.create')}}" class="list-group-item list-group-item-action waves-effect {{Route::is('comments.create') ? 'active' : ''}}">Add Comment</a></li>
-            </ul>
-
+            <a href="{{route('comments.index')}}" class="list-group-item list-group-item-action waves-effect {{Route::is('comments.index') ? 'active' : ''}}">
+                <i class="fas fa-comment-dots mr-3 "></i>Comments</a>
 
             <a href="{{route('states.index')}}" class="list-group-item list-group-item-action waves-effect {{Route::is('states.index') ? 'active' : ''}}">
-                <i class="fas fa-comment-dots mr-3 "></i>States</a>
+                <i class="fas fa-satellite mr-3 "></i>States</a>
+            @endif
             @if(auth()->user()->role =='admin')
-            <a href="#pageSubmenu" class="list-group-item list-group-item-action waves-effect dropdown-toggle {{Route::is('states.create','users.index','users.create') ? 'active' : ''}}" data-toggle="collapse" aria-expanded="false">
-                <i class="fas fa-comments mr-3"></i>Admin</a>
 
-            <ul class="collapse list-unstyled" id="pageSubmenu">
-                <li>
-                    <a class="list-group-item list-group-item-action waves-effect {{Route::is('states.create') ? 'active' : ''}}" href="{{route('states.create')}}">Create State</a>
-                </li>
-                <li>
-                    <a class="list-group-item list-group-item-action waves-effect {{Route::is('users.index') ? 'active' : ''}}" href="{{route('users.index')}}">View Users</a>
-                </li>
-                <li>
-                    <a class="list-group-item list-group-item-action waves-effect {{Route::is('users.create') ? 'active' : ''}}" href="{{route('users.create')}}">Create User</a>
-                </li>
-            </ul>
+                <a href="#client" class="list-group-item list-group-item-action waves-effect dropdown-toggle {{Route::is('clients.index','clients.create','clients.show','clients.edit') ? 'active' : ''}}" data-toggle="collapse" aria-expanded="false">
+                    <i class="fas fa-ticket-alt mr-3"></i>Clients</a>
+
+                <ul class="collapse list-unstyled" id="client">
+                    <li> <a href="{{route('clients.index')}}" class="list-group-item list-group-item-action waves-effect {{Route::is('clients.index') ? 'active' : ''}}">View Clients</a></li>
+                    <li> <a href="{{route('clients.create')}}" class="list-group-item list-group-item-action waves-effect {{Route::is('clients.create') ? 'active' : ''}}">Create Client</a></li>
+                </ul>
+
+
+                <a href="#ticket" class="list-group-item list-group-item-action waves-effect dropdown-toggle {{Route::is('tickets.index','tickets.create','tickets.show','tickets.edit') ? 'active' : ''}}" data-toggle="collapse" aria-expanded="false">
+                    <i class="fas fa-clipboard-list mr-3"></i>Tickets</a>
+
+
+                <ul class="collapse list-unstyled" id="ticket">
+                    <li> <a href="{{route('tickets.index')}}" class="list-group-item list-group-item-action waves-effect {{Route::is('tickets.index') ? 'active' : ''}}">View Tickets</a></li>
+                    <li><a href="{{route('tickets.create')}}" class="list-group-item list-group-item-action waves-effect {{Route::is('tickets.create') ? 'active' : ''}}">Create Ticket</a></li>
+                </ul>
+
+
+                <a href="#comment" class="list-group-item list-group-item-action waves-effect dropdown-toggle {{Route::is('comments.index','comments.create','comments.show','comments.edit') ? 'active' : ''}}" data-toggle="collapse" aria-expanded="false">
+                    <i class="fas fa-comment-dots mr-3"></i>Comments</a>
+
+
+                <ul class="collapse list-unstyled" id="comment">
+                    <li><a href="{{route('comments.index')}}" class="list-group-item list-group-item-action waves-effect {{Route::is('comments.index') ? 'active' : ''}}">View Comments</a></li>
+                    <li><a href="{{route('comments.create')}}" class="list-group-item list-group-item-action waves-effect {{Route::is('comments.create') ? 'active' : ''}}">Create Comment</a></li>
+                </ul>
+
+                <a href="#state" class="list-group-item list-group-item-action waves-effect dropdown-toggle {{Route::is('states.index','states.create','states.show','states.edit') ? 'active' : ''}}" data-toggle="collapse" aria-expanded="false">
+                    <i class="fas fa-satellite mr-3"></i>States</a>
+
+
+                <ul class="collapse list-unstyled" id="state">
+                    <li><a href="{{route('states.index')}}" class="list-group-item list-group-item-action waves-effect {{Route::is('states.index') ? 'active' : ''}}">View States</a></li>
+                    <li><a href="{{route('states.create')}}" class="list-group-item list-group-item-action waves-effect {{Route::is('states.create') ? 'active' : ''}}">Create State</a></li>
+                </ul>
+
+                <a href="#user" class="list-group-item list-group-item-action waves-effect dropdown-toggle {{Route::is('users.index','users.create','users.show','users.edit') ? 'active' : ''}}" data-toggle="collapse" aria-expanded="false">
+                    <i class="fas fa-user mr-3"></i>Users</a>
+
+
+                <ul class="collapse list-unstyled" id="user">
+                    <li><a href="{{route('users.index')}}" class="list-group-item list-group-item-action waves-effect {{Route::is('users.index') ? 'active' : ''}}"> View Users</a></li>
+                    <li><a href="{{route('users.create')}}" class="list-group-item list-group-item-action waves-effect {{Route::is('users.create') ? 'active' : ''}}">Create User</a></li>
+                </ul>
+
 
             @endif
         </div>
@@ -261,7 +278,7 @@
             <div class="card-body d-sm-flex justify-content-between">
 
                 <h4 class="mb-2 mb-sm-0 pt-1">
-                    <a href="/">Home page</a>
+                    <a href="{{route('home')}}">Home page</a>
                     <span> / </span>
                     @yield('linked')
                 </h4>
@@ -308,8 +325,8 @@
 
     <!--Call to action-->
     <div class="pt-4">
-        <a class="btn btn-outline-white text-white" href="{{route('clients.index')}}"
-           role="button">Add Ticket
+        <a class="btn btn-outline-white text-white" href="{{route('tickets.create')}}"
+           role="button">Create Ticket
             <i class="fas fa-download ml-2"></i>
         </a>
         <a class="btn btn-outline-white text-white" href="{{route('home')}}"
