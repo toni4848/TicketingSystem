@@ -9,16 +9,6 @@ use App\Http\Requests\StoreStateRequest;
 class StatesController extends Controller
 {
     /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
-
-    /**
      * Display a listing of the resource.
      *
      * return \Illuminate\Http\Response
@@ -39,7 +29,7 @@ class StatesController extends Controller
      */
     public function create()
     {
-        //$this->authorize('admin');
+        $this->authorize('admin');
         //die("bok");
         return view('states.create');
     }
@@ -55,6 +45,7 @@ class StatesController extends Controller
         //$state = new State();
         //$state->state = request('state');
         //$state->save();
+        $this->authorize('admin');
 
         State::create([
             'state' => $request['state']
@@ -85,6 +76,8 @@ class StatesController extends Controller
      */
     public function edit(State $state)
     {
+        $this->authorize('admin', $state);
+
         //$state = State::findOrFail($id);
         return view('states.edit',compact('state'));
     }
@@ -99,6 +92,8 @@ class StatesController extends Controller
     public function update(State $state, StoreStateRequest $request)
     {
         //$state = State::findOrFail($id);
+
+        $this->authorize('admin', $state);
 
         State::where('id', $state['id'])->update([
             'state' => $request['state']
@@ -120,6 +115,8 @@ class StatesController extends Controller
     {
         //die("bok");
         //$state = State::findOrFail($id);
+        $this->authorize('admin', $state);
+
         $state->delete();
 
         return redirect(route('states.index'))->with('success', 'State deleted!');
