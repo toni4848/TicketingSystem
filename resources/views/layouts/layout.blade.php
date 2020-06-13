@@ -194,7 +194,7 @@
             <a href="{{route('home')}}" class="list-group-item list-group-item-action waves-effect {{Route::is('home') ? 'active' : ''}}">
                 <i class="fas fa-chart-pie mr-3"></i>Home
             </a>
-            @if(auth()->user()->role =='')
+            @if(auth()->user()->role =='user')
             <a href="{{route('clients.index')}}" class="list-group-item list-group-item-action waves-effect {{Route::is('clients.index') ? 'active' : ''}}">
                 <i class="fas fa-ticket-alt mr-3 "></i>Clients</a>
 

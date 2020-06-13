@@ -6,6 +6,8 @@ use App\Ticket;
 use Faker\Generator as Faker;
 
 $factory->define(Ticket::class, function (Faker $faker) {
+
+    $state= DB::table('states')->pluck('id');
     return [
         'title' => $faker->title,
         'body' => $faker->text,

@@ -5,9 +5,9 @@
 @endsection
 
 @section('button')
-    <form class="d-flex justify-content-center">
+    <form class="d-flex justify-content-center" action="{{route('users.searchUsers')}}" method="GET">
         <!-- Default input -->
-        <input type="search" placeholder="Search users" aria-label="Search" class="form-control">
+        <input type="search" placeholder="Search users" name="search" aria-label="Search" class="form-control">
         <button class="btn btn-amber btn-sm my-0 p" type="submit">
             <i class="fas fa-search"></i>
         </button>

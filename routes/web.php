@@ -44,7 +44,7 @@ Route::get('/clients', 'ClientsController@index')->name('clients.index');
 
 Route::post('/clients', 'ClientsController@store')->name('clients.store');
 
-Route::get('/clients/search', 'ClientsController@searchClients')->name('clients.searchClients');
+Route::get('/clients/search', 'Search\SearchClientsController@index')->name('clients.searchClients');
 
 Route::get('/clients/create','ClientsController@create')->name('clients.create');
 
@@ -59,6 +59,7 @@ Route::delete('/clients/{client}', 'ClientsController@destroy')->name('clients.d
 //Users routes
 
 Route::get('/users', 'UserController@index')->name('users.index');
+Route::get('/users/search','Search\SearchUsersController@index')->name('users.searchUsers');
 Route::get('/users/create', 'UserController@create')->name('users.create');
 Route::post('/users', 'UserController@store')->name('users.store');
 Route::get('/users/{user}', 'UserController@show')->name('users.show');
@@ -80,7 +81,7 @@ Route::delete('/comments/{comment}', 'CommentController@destroy')->name('comment
 
 Route::get('/tickets','TicketsController@index')->name('tickets.index');
 
-Route::get('/tickets/search','TicketsController@searchTickets')->name('tickets.searchTickets');
+Route::get('/tickets/search','Search\SearchTicketsController@index')->name('tickets.searchTickets');
 
 Route::post('/tickets','TicketsController@store')->name('tickets.store');
 
