@@ -8,15 +8,15 @@
     <form class="d-flex justify-content-center" action="{{route('clients.searchClients')}}" method="GET">
         <!-- Default input -->
         <input type="search" name="search" placeholder="Search clients" aria-label="Search" class="form-control">
-        <button class="btn peach-gradient btn-sm my-0 p" type="submit">
+        <button class="btn btn-amber btn-sm my-0 p" type="submit">
             <i class="fas fa-search"></i>
         </button>
     </form>
     <a class="text-white d-flex" href="{{route('clients.create')}}">
-        <button class="btn blue-gradient btn-sm my-0 p">Create</button>
+        <button class="btn btn-primary btn-sm my-0 p">Create Client</button>
     </a>
-    <a class="text-white d-flex" href="/">
-        <button class="btn peach-gradient btn-sm my-0 p">Home</button>
+    <a class="text-white d-flex" href="{{route('home')}}">
+        <button class="btn btn-amber btn-sm my-0 p">Home</button>
     </a>
 @endsection
 
@@ -34,29 +34,29 @@
         <table class="table table-hover">
             <thead>
             <tr>
-                <th scope="col">#</th>
-                <th scope="col">Name</th>
-                <th scope="col">Email</th>
-                <th scope="col">Adress</th>
-                <th scope="col">View</th>
-                <th scope="col">Add ticket</th>
+                <th scope="col" class="text-center">#</th>
+                <th scope="col" class="text-center">Name</th>
+                <th scope="col" class="text-center">Email</th>
+                <th scope="col" class="text-center">Adress</th>
+                <th scope="col" class="text-center">View</th>
+                <th scope="col" class="text-center">Add ticket</th>
             </tr>
             </thead>
             <tbody>
             @foreach($clients as $client)
                 <tr>
-                    <td>{{$client->id}}</td>
-                    <td>{{$client->name}}</td>
-                    <td>{{$client->email}}</td>
-                    <td>{{$client->adress}}</td>
-                    <td>
+                    <td class="text-center">{{$client->id}}</td>
+                    <td class="text-center">{{$client->name}}</td>
+                    <td class="text-center">{{$client->email}}</td>
+                    <td class="text-center">{{$client->adress}}</td>
+                    <td class="text-center">
                         <a class="text-white" href="{{route('clients.show',$client)}}">
-                        <button type="button" class="btn btn-indigo btn-sm m-0">View</button>
+                        <button type="button" class="btn btn-light-blue darken-1 btn-sm m-0">View</button>
                         </a>
                     </td>
-                    <td>
+                    <td class="text-center">
                         <a class="text-white" href="{{route('tickets.create',$client)}}">
-                            <button type="button" class="btn btn-green btn-sm m-0">Add</button>
+                            <button type="button" class="btn btn-light-green btn-sm m-0">Add</button>
                         </a>
                     </td>
                 </tr>

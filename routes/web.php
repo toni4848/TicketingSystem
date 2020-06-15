@@ -26,13 +26,14 @@ Route::group(['middleware' => 'auth'], function() {
 
     Route::resource('states', 'StatesController');
 
-    Route::get('/clients/search', 'ClientsController@searchClients')->name('clients.searchClients');
+    Route::get('/clients/search', 'Search\SearchClientsController@index')->name('clients.searchClients');
     Route::resource('clients', 'ClientsController');
-
+  
+    Route::get('/users/search','Search\SearchUsersController@index')->name('users.searchUsers');
     Route::resource('users', 'UserController');
 
     Route::resource('comments', 'CommentController');
 
-    Route::get('/tickets/search','TicketsController@searchTickets')->name('tickets.searchTickets');
+    Route::get('/tickets/search','Search\SearchTicketsController@index')->name('tickets.searchTickets');
     Route::resource('tickets', 'TicketsController');
 });

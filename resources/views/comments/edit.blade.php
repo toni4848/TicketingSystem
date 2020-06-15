@@ -9,8 +9,8 @@
 @endsection
 
 @section('button')
-    <a class="text-white d-flex" href="/">
-        <button class="btn peach-gradient btn-sm my-0 p">Home</button>
+    <a class="text-white d-flex" href="{{route('home')}}">
+        <button class="btn btn-amber btn-sm my-0 p">Home</button>
     </a>
 @endsection
 
@@ -32,18 +32,18 @@
                     <textarea id="comment"
                     name="comment"
                     class="md-textarea md-textarea-auto form-control
-                    @error('comment') is-danger @enderror"
+                    @error('comment') is-invalid @enderror"
                     style="resize: none"
                     rows="4"
-                    cols="50">{{ $comment->comment }}</textarea>
+                    cols="50" required>{{ $comment->comment }}</textarea>
                     <label for="comment">Comment</label>
 
                     @error('comment')
-                        <p class="help is-danger">{{ $errors->first('comment') }}</p>
+                        <span class="invalid-feedback">{{ $errors->first('comment') }}</span>
                     @enderror
                 </div>
                 <div class="text-center pt-2">
-                <button class="btn blue-gradient text-white " type="submit">Save</button>
+                <button class="btn btn-primary text-white " type="submit">Edit Comment</button>
                 </div>
             </form>
         </div>

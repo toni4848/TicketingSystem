@@ -5,8 +5,8 @@
 @endsection
 
 @section('button')
-    <a class="text-white d-flex" href="/">
-        <button class="btn peach-gradient btn-sm my-0 p">Home</button>
+    <a class="text-white d-flex" href="{{route('home')}}">
+        <button class="btn btn-amber btn-sm my-0 p">Home</button>
     </a>
 @endsection
 
@@ -27,13 +27,13 @@
                         <input type="text"
                                id="name"
                                name="name"
-                               class="form-control @error('name') is-danger @enderror"
+                               class="form-control @error('name') is-invalid @enderror"
                                required
                                value="{{ old('name') }}">
                         <label for="name">Name</label>
 
                         @error('name')
-                            <p class="help is-danger">{{ $errors->first('name') }}</p>
+                            <span class="invalid-feedback">{{ $errors->first('name') }}</span>
                         @enderror
                     </div>
 
@@ -41,13 +41,13 @@
                         <input type="text"
                                id="username"
                                name="username"
-                               class="form-control @error('username') is-danger @enderror"
+                               class="form-control @error('username') is-invalid @enderror"
                                required
                                value="{{ old('username') }}">
                         <label for="username">Userame</label>
 
                         @error('username')
-                            <p class="help is-danger">{{ $errors->first('username') }}</p>
+                            <span class="invalid-feedback">{{ $errors->first('username') }}</span>
                         @enderror
                     </div>
 
@@ -55,14 +55,14 @@
                         <input type="email"
                                id="email"
                                name="email"
-                               class="form-control @error('email') is-danger @enderror"
+                               class="form-control @error('email') is-invalid @enderror"
                                required
                                value="{{ old('email') }}"
                                autocomplete="email" autofocus>
                         <label for="email">Email</label>
 
                         @error('email')
-                        <p class="help is-danger">{{ $errors->first('email') }}</p>
+                        <span class="invalid-feedback">{{ $errors->first('email') }}</span>
                         @enderror
                     </div>
 
@@ -70,16 +70,16 @@
                         <input type="password"
                                id="password"
                                name="password"
-                               class="form-control @error('password') is-danger @enderror"
+                               class="form-control @error('password') is-invalid @enderror"
                                required>
                         <label for="password">Password</label>
 
                         @error('password')
-                            <p class="help is-danger">{{ $errors->first('password') }}</p>
+                            <span class="invalid-feedback">{{ $errors->first('password') }}</span>
                         @enderror
                     </div>
                     <div class="text-center pt-2">
-                    <button class="btn blue-gradient text-white " type="submit">Store User</button>
+                    <button class="btn btn-primary text-white " type="submit">Create User</button>
                     </div>
                 </form>
             </div>

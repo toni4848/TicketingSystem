@@ -6,10 +6,10 @@
 
 @section('button')
     <a class="text-white d-flex" href="{{route('comments.create')}}">
-        <button class="btn blue-gradient btn-sm my-0 p">Create</button>
+        <button class="btn btn-primary btn-sm my-0 p">Create Comment</button>
     </a>
-    <a class="text-white d-flex" href="/">
-        <button class="btn peach-gradient btn-sm my-0 p">Home</button>
+    <a class="text-white d-flex" href="{{route('home')}}">
+        <button class="btn btn-amber btn-sm my-0 p">Home</button>
     </a>
 @endsection
 
@@ -20,26 +20,26 @@
             <h1>Comments</h1>
         </div>
     </div>
-    <table class="table">
+    <table class="table table-hover">
         <thead>
         <tr>
-            <th scope="col">ID</th>
-            <th scope="col">Comment</th>
-            <th scope="col">User</th>
-            <th scope="col">Ticket</th>
-            <th scope="col">View</th>
+            <th scope="col" class="text-center">ID</th>
+            <th scope="col" class="text-center">Comment</th>
+            <th scope="col" class="text-center">User</th>
+            <th scope="col" class="text-center">Ticket</th>
+            <th scope="col" class="text-center">View</th>
         </tr>
         </thead>
         <tbody>
         @foreach($comments as $comment)
             <tr>
-                <td>{{ $comment->id }}</td>
-                <td>{{ $comment->comment }}</td>
-                <td>{{ $comment->user->name }}</td>
-                <td>{{ $comment->ticket->title }}</td>
-                <td>
+                <td class="text-center">{{ $comment->id }}</td>
+                <td class="text-center">{{ $comment->comment }}</td>
+                <td class="text-center">{{ $comment->user->name }}</td>
+                <td class="text-center">{{ $comment->ticket->title }}</td>
+                <td class="text-center">
                     <a class="text-white" href="{{ route('comments.show', $comment) }}">
-                    <button type="button" class="btn btn-indigo btn-sm m-0">View</button>
+                    <button type="button" class="btn btn-light-blue btn-sm m-0">View</button>
                     </a>
                 </td>
             </tr>

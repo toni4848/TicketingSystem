@@ -7,22 +7,10 @@
 
 @section('button')
     <a class="text-white d-flex" href="{{route('tickets.create')}}">
-        <button class="btn blue-gradient btn-sm my-0 p">Create</button>
+        <button class="btn btn-primary btn-sm my-0 p">Create Ticket</button>
     </a>
-    @can('update',$ticket)
-        <a class="text-white" href="{{route('tickets.edit',$ticket->id)}}">
-            <button type="button" class="btn tempting-azure-gradient example btn-sm my-0 p">Edit</button>
-        </a>
-    @endcan
-    @can('delete',$ticket)
-        <form method="POST" action="{{route('tickets.destroy',$ticket->id)}}">
-            @csrf
-            @method('DELETE')
-            <button type="submit" class=" text-white btn young-passion-gradient example btn-sm my-0 p">Delete</button>
-        </form>
-    @endcan
-    <a class="text-white d-flex" href="/">
-        <button class="btn peach-gradient btn-sm my-0 p">Home</button>
+    <a class="text-white d-flex" href="{{route('home')}}">
+        <button class="btn btn-amber btn-sm my-0 p">Home</button>
     </a>
 @endsection
 
@@ -34,7 +22,7 @@
             </div>
         </div>
         <div>
-            <table class="table">
+            <table class="table table-hover">
                 <thead>
                 <tr>
                     <th scope="col" class="text-center">Title</th>
@@ -54,7 +42,7 @@
                     <td class="text-center">
                         @can('update',$ticket)
                             <a class="text-white" href="{{route('tickets.edit',$ticket->id)}}">
-                                <button type="button" class="btn btn-green btn-sm m-0">Edit</button>
+                                <button type="button" class="btn btn-light-green btn-sm m-0">Edit</button>
                             </a>
                         @else
                             <a class="text-center">Forbidden</a>
@@ -65,7 +53,7 @@
                             <form method="POST" action="{{route('tickets.destroy',$ticket->id)}}">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="btn btn-red btn-sm m-0">Delete</button>
+                                <button type="submit" class="btn red lighten-1 text-white btn-sm m-0">Delete</button>
                             </form>
                         @else
                             <a class="text-center">Forbidden</a>
@@ -113,7 +101,7 @@
             </div>
 
         </div>
-
+        <div class="pl-4 pr-4">
         <div class="col align-self-center" style="margin-top: 40px">
             <h1>Comments</h1>
         </div>
@@ -121,7 +109,7 @@
             <form method="POST" action="{{ route('comments.store') }}">
                 @csrf
 
-                <div class="md-form 2">
+                <div class="md-form 2 p-0 m-0">
                             <textarea id="comment"
                                       name="comment"
                                       class="md-textarea md-textarea-auto form-control
@@ -137,10 +125,12 @@
                 </div>
                 <input type="hidden" name="ticket_id" value="{{ $ticket->id }}"/>
                 <input type="hidden" name="user_id" value="{{ $ticket->user_id }}"/>
-                <button class="btn blue-gradient text-white " type="submit">Post</button>
+                <button class="btn btn-primary text-white " type="submit">Add Comment</button>
 
             </form>
         </div>
+        </div>
+        <div class="p-4">
         @foreach ($ticket->comments as $comment)
             <div class="p-2">
                 <div class="card">
@@ -157,7 +147,7 @@
                             <form method="POST" action="{{route('comments.destroy', $comment->id)}}">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" style="float: right; margin-left: 5px" class="btn btn-red btn-sm">
+                                <button type="submit" style="float: right; margin-left: 5px" class="btn red lighten-1 text-white btn-sm">
                                     Delete
                                 </button>
                             </form>
@@ -165,7 +155,7 @@
                             @can('delete',$comment)
                             <form method="GET" action="{{route('comments.edit', $comment->id)}}">
                                 <button type="submit" style="float: right; margin-left: 5px"
-                                        class="btn btn-green btn-sm">Edit
+                                        class="btn btn-light-green btn-sm">Edit
                                 </button>
                             </form>
                                 @endcan
@@ -174,6 +164,7 @@
                 </div>
             </div>
         @endforeach
+        </div>
         <div class="col-sm-12 p-4">
             @if(session()->get('success'))
                 <div class="alert alert-success">

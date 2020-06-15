@@ -18,27 +18,12 @@ class TicketsController extends Controller
      */
     public function index()
     {
-        $tickets = Ticket::userRole()->latest('created_at')->paginate(10);
+
+        $tickets = Ticket::latest('created_at')->paginate(10);
+
 
         return view ('tickets.index', compact('tickets'));
 
-    }
-
-    public function searchTickets(Request $request){
-
-        $search=$request->get('search');
-
-        if ($search){
-            $tickets= Ticket::userRole()->where('title','like', '%'.$search.'%')
-                ->orWhere('body', 'like', '%'.$search.'%')
-                ->latest('created_at')
-                ->paginate(10);
-        }else{
-
-            $tickets = Ticket::userRole()->latest('created_at')
-                ->paginate(10);
-        }
-        return view ('tickets.index', compact('tickets'));
     }
     /**
      * Show the form for creating a new resource.

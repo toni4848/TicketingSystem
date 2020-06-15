@@ -22,24 +22,6 @@ class ClientsController extends Controller
 
     }
 
-    public function searchClients(Request $request){
-
-        $search=$request->get('search');
-
-        if ($search){
-            $clients= Client::where('name','like', '%'.$search.'%')
-                ->orWhere('email', 'like', '%'.$search.'%')
-                ->orWhere('adress', 'like', '%'.$search.'%')
-                ->latest('created_at')
-                ->paginate(10);
-        }else{
-
-            $clients = Client::latest('created_at')
-                ->paginate(10);
-        }
-        return view ('clients.index', compact('clients'));
-    }
-
     /**
      * Show the form for creating a new resource.
      *

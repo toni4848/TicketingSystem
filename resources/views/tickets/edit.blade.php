@@ -9,8 +9,8 @@
 @endsection
 
 @section('button')
-    <a class="text-white d-flex" href="/">
-        <button class="btn peach-gradient btn-sm my-0 p">Home</button>
+    <a class="text-white d-flex" href="{{route('home')}}">
+        <button class="btn btn-amber btn-sm my-0 p">Home</button>
     </a>
 @endsection
 
@@ -40,7 +40,7 @@
                         <label for="title">Title</label>
 
                         @error('title')
-                        <p class="help is-danger">{{$errors->first('title')}}</p>
+                        <span class="invalid-feedback">{{$errors->first('title')}}</span>
                         @enderror
                     </div>
                     <div class="md-form">
@@ -54,7 +54,7 @@
                         <label for="body">Body</label>
 
                         @error('body')
-                        <p class="help is-danger">{{$errors->first('body')}}</p>
+                        <span class="invalid-feedback">{{$errors->first('body')}}</span>
                         @enderror
                     </div>
 
@@ -62,7 +62,7 @@
                         <select id="state"
                                 class="browser-default custom-select m-2"
                                 name="state">
-                            <option value="">State</option>
+                                <option value="{{$ticket->state->id}}" hidden>{{$ticket->state->state}}</option>
                             @foreach($states as $state)
                                 <option value="{{$state->id}}">{{$state->state}}</option>
                             @endforeach
@@ -78,7 +78,7 @@
                         <select id="client"
                                 class="browser-default custom-select m-2"
                                 name="client">
-                            <option value="">Client</option>
+                                <option value="{{$ticket->client->id}}" hidden>{{$ticket->client->name}}</option>
                             @foreach($clients as $client)
                                 <option value="{{$client->id}}">{{$client->name}}</option>
                             @endforeach
@@ -91,7 +91,7 @@
 
                     </div>
                     <div class="text-center pt-2">
-                    <button class="btn blue-gradient text-white " type="submit">Update Ticket {{$ticket->id}}</button>
+                    <button class="btn btn-primary text-white " type="submit">Edit Ticket {{$ticket->id}}</button>
                     </div>
                 </form>
             </div>

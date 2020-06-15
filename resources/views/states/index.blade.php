@@ -7,11 +7,11 @@
 @section('button')
     @can('admin')
     <a class="text-white d-flex" href="{{route('states.create')}}">
-        <button class="btn blue-gradient btn-sm my-0 p">Create</button>
+        <button class="btn btn-primary btn-sm my-0 p">Create State</button>
     </a>
     @endcan
-    <a class="text-white d-flex" href="/">
-        <button class="btn peach-gradient btn-sm my-0 p">Home</button>
+    <a class="text-white d-flex" href="{{route('home')}}">
+        <button class="btn btn-amber btn-sm my-0 p">Home</button>
     </a>
 @endsection
 
@@ -41,7 +41,7 @@
                             <td class="text-center">{{$state->state}}</td>
                             <td class="text-center">
                                 <a class="text-white text-center" href="{{route('states.show', $state)}}">
-                                    <button type="button" class="btn btn-indigo btn-sm m-0 text-center">View</button>
+                                    <button type="button" class="btn btn-light-blue btn-sm m-0 text-center">View</button>
                                 </a>
                             </td>
                         </tr>
