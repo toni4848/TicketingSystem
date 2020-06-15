@@ -6,19 +6,10 @@ use App\User;
 use App\Ticket;
 use App\Comment;
 use Illuminate\Http\Request;
+use App\Http\Requests\StoreCommentRequest;
 
 class CommentController extends Controller
 {
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
-
     /**
      * Display a listing of the resource.
      *
@@ -48,17 +39,11 @@ class CommentController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreCommentRequest $request)
     {
-        $user=auth()->user()->id;
-        request()->validate([
-            'comment' => ['required', 'max:255'],
-            'ticket_id' => 'required'
-        ]);
-
         Comment::create([
             'comment' => request('comment'),
-            'user_id' => $user,
+            'user_id' => auth()->user()->id,
             'ticket_id' => request('ticket_id')
         ]);
 
@@ -95,10 +80,12 @@ class CommentController extends Controller
      * @param  \App\Comment  $comment
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Comment $comment)
+    public function update(StoreCommentRequest $request, Comment $comment)
     {
         $this->authorize('update',$comment);
-        $comment->update($this->validateComment());
+        Comment::where('id', $comment['id'])->update([
+            'comment' => $request['comment']
+        ]);
 
         return redirect(route('tickets.show', $comment->ticket_id))->with('success', 'Comment updated!');
     }
@@ -115,12 +102,5 @@ class CommentController extends Controller
         $comment->delete();
 
         return redirect(route('tickets.show', $comment->ticket_id))->with('success', 'Comment deleted!');
-    }
-
-    public function validateComment(): array
-    {
-        return request()->validate([
-            'comment' => ['required', 'max:255']
-        ]);
     }
 }

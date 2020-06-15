@@ -5,19 +5,10 @@ namespace App\Http\Controllers;
 use App\User;
 use Hash;
 use Illuminate\Http\Request;
+use App\Http\Requests\StoreUserRequest;
 
 class UserController extends Controller
 {
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
-
     /**
      * Display a listing of the resource.
      *
@@ -49,21 +40,15 @@ class UserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreUserRequest $request)
     {
         $this->authorize('admin',$request);
-        request()->validate([
-            'username' => ['required','unique:users'],
-            'name' => 'required',
-            'email' => ['required','unique:users',],
-            'password' => ['required','min:8']
-        ]);
 
         User::create([
-            'username' => request('username'),
-            'name' => request('name'),
-            'email' => request('email'),
-            'password' => Hash::make(request('password'))
+            'username' => $request['username'],
+            'name' => $request['name'],
+            'email' => $request['email'],
+            'password' => Hash::make($request['password'])
         ]);
         
         return redirect(route('users.index'))->with('success', 'User stored!');
@@ -101,20 +86,16 @@ class UserController extends Controller
      * @param  \App\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, User $user)
+    public function update(StoreUserRequest $request, User $user)
     {
 
         $this->authorize('update', $user);
-        request()->validate([
-            'username' => ['required', 'max:45'],
-            'name' => ['required', 'max:45'],
-            'password' => ['required', 'max:45']
-        ]);
 
-        $user->update([
-            'username' => request('username'),
-            'name' => request('name'),
-            'password' => Hash::make(request('password'))
+        User::where('id', $user['id'])->update([
+            'username' => $request['username'],
+            'name' => $request['name'],
+            'email' => $request['email'],
+            'password' => Hash::make($request['password'])
         ]);
 
         return redirect(route('users.show', $user))->with('success', 'User updated!');

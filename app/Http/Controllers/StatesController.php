@@ -4,19 +4,10 @@ namespace App\Http\Controllers;
 
 use App\State;
 use Illuminate\Http\Request;
+use App\Http\Requests\StoreStateRequest;
 
 class StatesController extends Controller
 {
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
-
     /**
      * Display a listing of the resource.
      *
@@ -38,7 +29,7 @@ class StatesController extends Controller
      */
     public function create()
     {
-        //$this->authorize('admin');
+        $this->authorize('admin');
         //die("bok");
         return view('states.create');
     }
@@ -48,14 +39,17 @@ class StatesController extends Controller
      *  @param  \Illuminate\Http\Request  $request
      *  return \Illuminate\Http\Response
      */
-    public function store()
+    public function store(StoreStateRequest $request)
     {
 
         //$state = new State();
         //$state->state = request('state');
         //$state->save();
+        $this->authorize('admin');
 
-        State::create($this->validateState());
+        State::create([
+            'state' => $request['state']
+        ]);
 
         return redirect(route('states.index'))->with('success', 'State created!');
 
@@ -82,6 +76,8 @@ class StatesController extends Controller
      */
     public function edit(State $state)
     {
+        $this->authorize('admin', $state);
+
         //$state = State::findOrFail($id);
         return view('states.edit',compact('state'));
     }
@@ -93,11 +89,15 @@ class StatesController extends Controller
      * @param  \App\State  $state
      * return \Illuminate\Http\Response
      */
-    public function update(State $state)
+    public function update(State $state, StoreStateRequest $request)
     {
         //$state = State::findOrFail($id);
 
-        $state->update($this->validateState());
+        $this->authorize('admin', $state);
+
+        State::where('id', $state['id'])->update([
+            'state' => $request['state']
+        ]);
 
         //$state->state = request('state');
         //$state->save();
@@ -115,19 +115,11 @@ class StatesController extends Controller
     {
         //die("bok");
         //$state = State::findOrFail($id);
+        $this->authorize('admin', $state);
+
         $state->delete();
 
         return redirect(route('states.index'))->with('success', 'State deleted!');
 
-    }
-
-    /**
-     * @return array
-     */
-    public function validateState(): array
-    {
-        return request()->validate([
-            'state' => ['required', 'max:45']
-        ]);
     }
 }
