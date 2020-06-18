@@ -36,4 +36,6 @@ Route::group(['middleware' => 'auth'], function() {
 
     Route::get('/tickets/search','Search\SearchTicketsController@index')->name('tickets.searchTickets');
     Route::resource('tickets', 'TicketsController');
+
+    Route::get('notifications', 'UserNotificationsController@show')->name('notifications.show');
 });
